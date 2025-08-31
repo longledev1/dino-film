@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color */
+  --color-sub: #9ca4ab;
+  --color-button: #45704d;
+
+  /* Font */
+  --font-sans: "Netflix Sans", ui-sans-serif, system-ui;
+}
+/* Default  */
+@font-face {
+  font-family: "Netflix Sans";
+  src:
+    url("NetflixSans-Regular"),
+    url("./fonts/NetflixSans-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src:
+    url("NetflixSans-Light"),
+    url("./fonts/NetflixSans-Light.woff2") format("woff2");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src:
+    url("NetflixSans-Medium"),
+    url("./fonts/NetflixSans-Medium.woff2") format("woff2");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src:
+    url("NetflixSans-Bold"),
+    url("./fonts/NetflixSans-Bold.woff2") format("woff2");
+  font-weight: bold;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-slide {
+  display: flex;
+  animation: slide 10s linear infinite;
+}
