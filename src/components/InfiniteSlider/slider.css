@@ -1,0 +1,15 @@
+/* Thêm vào file CSS của bạn */
+.swiper-slide {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  height: 80px; /* Điều chỉnh chiều cao */
+}
+
+.swiper-slide img {
+  max-width: 150px; /* Giới hạn width ảnh */
+  max-height: 100%; /* Giới hạn height ảnh */
+  object-fit: contain;
+  width: auto;
+  height: auto;
+}

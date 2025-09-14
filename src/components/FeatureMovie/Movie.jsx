@@ -1,36 +1,48 @@
 import { FaPlayCircle } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa";
-const Movie = () => {
+const Movie = (props) => {
+  const { data, categoryMovie } = props;
+  const getCategoryMovie = data?.genre_ids.map((id) => {
+    const category = categoryMovie.find((c) => c.id === id);
+    return category ? category.name : null;
+  });
+
   return (
     <>
       {/* Background Poster */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center transition-all duration-700"
         style={{
-          backgroundImage:
-            "url('https://www.studioremarkable.com/wp-content/uploads/2015/12/Star-Wars-7-Poster.jpg')",
+          backgroundImage: `url('https://image.tmdb.org/t/p/original/${data?.backdrop_path}')`,
         }}
       >
         {/* Overlay cho tối ảnh lại */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
       {/* Nội dung Hero */}
-      <div className="relative z-10 flex h-full flex-col items-start justify-end px-10 text-white">
+      <div className="relative z-10 container flex h-full flex-col items-start justify-end text-white">
         <div className="mb-10">
-          <h2 className="mb-2 text-4xl font-bold md:text-6xl">
-            Star Wars: The Force Awakens
+          <h2 className="mb-2 w-full text-4xl font-bold md:text-6xl lg:w-[800px]">
+            {data?.title}
           </h2>
-          <button className="mb-4 w-fit border border-gray-500 p-2 text-xl text-gray-500">
-            PG13
-          </button>
-          <p className="text-sub mb-4">2h40m * 2022 * Fantasy * Action</p>
+
+          <p className="text-sub mb-2">{data?.release_date}</p>
+          <div className="mb-4 flex items-center gap-x-2">
+            {getCategoryMovie &&
+              getCategoryMovie.map((name) => {
+                return (
+                  <button
+                    key={name}
+                    className="w-fit rounded-md bg-slate-300/35 p-2 text-[14px] font-extralight"
+                  >
+                    {name}
+                  </button>
+                );
+              })}
+          </div>
           <p className="mb-2 text-2xl font-bold text-white">Overview</p>
-          <p className="mb-6 max-w-xl">
-            A long time ago in a galaxy far, far away... The epic saga continues
-            as heroes and villains clash in a battle that will shape the future
-            of the galaxy.
-          </p>
+          <p className="mb-6 max-w-xl">{data?.overview}</p>
           <div className="flex space-x-4">
             <button className="bg-button flex cursor-pointer items-center gap-x-2 rounded-lg px-6 py-3 font-semibold hover:bg-green-700">
               <FaPlayCircle className="text-xl"></FaPlayCircle>
