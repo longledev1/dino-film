@@ -38,17 +38,33 @@ export const TOPIC = [
   },
 ];
 
-export const TABS = [
+export const TABS_TRENDING = [
   {
     id: "all",
     name: "ALL",
+    url: "/trending/all/day",
   },
   {
-    id: "movies",
+    id: "movie",
     name: "Movies",
+    url: "/trending/movie/day",
   },
   {
-    id: "tvshow",
+    id: "tv",
     name: "TV Show",
+    url: "/trending/tv/day",
+  },
+];
+
+export const TABS_TOP_RATED = [
+  {
+    id: "movie",
+    name: "Movies",
+    url: "/movie/top_rated",
+  },
+  {
+    id: "tv",
+    name: "TV Show",
+    url: "/tv/top_rated",
   },
 ];

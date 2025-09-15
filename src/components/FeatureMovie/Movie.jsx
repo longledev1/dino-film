@@ -1,3 +1,4 @@
+// React Icons
 import { FaPlayCircle } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa";
 const Movie = (props) => {

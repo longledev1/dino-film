@@ -9,11 +9,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 // Component
 import Title from "../Title/Title";
-const MediaList = () => {
+const MediaList = (props) => {
+  const { title } = props;
   const { data } = useSWR(["/movie/now_playing"], movieFetcher);
   return (
     <div className="">
-      <Title className="text-white">Just Released</Title>
+      <Title className="text-white">{title}</Title>
       <div className="movie-list mt-4">
         <Swiper
           spaceBetween={30}
@@ -49,7 +50,12 @@ const MediaList = () => {
           {data?.results.length > 0 &&
             data?.results.map((movie) => (
               <SwiperSlide key={movie.id}>
-                <MovieCard movie={movie} />
+                <MovieCard
+                  title={movie.title}
+                  date={movie.release_date}
+                  point={movie.vote_average}
+                  poster={movie.poster_path}
+                />
               </SwiperSlide>
             ))}
         </Swiper>

@@ -1,4 +1,9 @@
-const CircularProgress = ({ percent = 12, size = 3, strokeWidth = 0.25 }) => {
+const CircularProgress = ({
+  percent = 12,
+  size = 3,
+  strokeWidth = 0.25,
+  strokeColor = "green",
+}) => {
   // Chuyển size sang px bằng cách clamp trong JS
   // min: 40px, max: 80px, còn lại theo % viewport
   const vw = window.innerWidth;
@@ -27,7 +32,7 @@ const CircularProgress = ({ percent = 12, size = 3, strokeWidth = 0.25 }) => {
           cx={finalSize / 2}
           cy={finalSize / 2}
           strokeWidth={strokeWidth * 16}
-          stroke="green"
+          stroke={strokeColor}
           fill="none"
           strokeDasharray={circumference}
           strokeDashoffset={dashOffset}

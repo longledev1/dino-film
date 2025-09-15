@@ -1,9 +1,14 @@
-// FeatureMovie.jsx
+// Hooks
 import { useEffect, useMemo, useState } from "react";
+// Component
 import Movie from "./Movie";
 import PaginateIndicator from "./PaginateIndicator";
+// SWR
 import useSWR from "swr";
+// Service
 import { movieFetcher } from "../../services/fetcher";
+// Constant
+import { imageTMDB } from "../../constant";
 
 export default function FeatureMovie() {
   // State
@@ -41,7 +46,7 @@ export default function FeatureMovie() {
   useEffect(() => {
     movies.forEach((movie) => {
       const img = new Image();
-      img.src = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
+      img.src = `${imageTMDB}/p/original/${movie.backdrop_path}`;
     });
   }, [movies]);
 
@@ -65,7 +70,7 @@ export default function FeatureMovie() {
               isActive ? "z-10 opacity-100" : "z-0 opacity-0"
             }`}
             style={{
-              backgroundImage: `url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')`,
+              backgroundImage: `url(${imageTMDB}/original/${movie.backdrop_path})`,
             }}
           >
             <div className="absolute inset-0 bg-black/40"></div>

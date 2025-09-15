@@ -13,6 +13,8 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  console.log("Re-render");
+
   return (
     <nav
       className={`fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
