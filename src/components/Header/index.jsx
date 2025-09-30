@@ -6,14 +6,12 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); // 50px là ngưỡng, bạn có thể chỉnh
+      setIsScrolled(window.scrollY > 50); // 50px là ngưỡng
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  console.log("Re-render");
 
   return (
     <nav

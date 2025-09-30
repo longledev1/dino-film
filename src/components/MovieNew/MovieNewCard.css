@@ -1,0 +1,9 @@
+/* class cho skew dương */
+.skew-positive {
+  transform: skewY(3deg);
+}
+
+/* class cho skew âm */
+.skew-negative {
+  transform: skewY(-3deg);
+}

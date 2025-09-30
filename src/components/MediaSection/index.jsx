@@ -1,5 +1,5 @@
 // Component
-import Title from "../Title/Title";
+import Title from "../Title";
 import MovieCard from "../MediaList/MovieCard";
 // Hooks
 import { useState, useCallback, useMemo } from "react";
@@ -11,6 +11,8 @@ import { movieFetcher } from "../../services/fetcher";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
+import "../../assets/css/media.css";
+
 const MediaSection = (props) => {
   const { title, tabs } = props;
 
@@ -34,7 +36,7 @@ const MediaSection = (props) => {
   );
 
   return (
-    <div className="">
+    <div>
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-x-2">
         <div className="flex items-center gap-x-2">
           <span className="text-2xl">

@@ -1,4 +1,7 @@
+// Image base URL (w185, w342, w500, w780, original)
 export const imageTMDB = "https://image.tmdb.org/t/p";
+
+// TOPIC
 export const TOPIC = [
   {
     id: 1,
@@ -38,6 +41,7 @@ export const TOPIC = [
   },
 ];
 
+// Tabs for Trending and Top Rated
 export const TABS_TRENDING = [
   {
     id: "all",
@@ -68,3 +72,13 @@ export const TABS_TOP_RATED = [
     url: "/tv/top_rated",
   },
 ];
+
+// Media data fetch URLs
+export const MEDIA_DATA = {
+  nowPlayingMovies: "/movie/now_playing",
+  popularMovies: "/movie/popular",
+  trendingTV: "/trending/tv/day",
+  trendingMovies: "/trending/movie/day",
+  chineseMovies: "/discover/movie?with_original_language=zh",
+  disneyMovies: "/discover/movie?with_companies=2",
+};

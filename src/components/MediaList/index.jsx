@@ -7,11 +7,12 @@ import { movieFetcher } from "../../services/fetcher";
 // Swiper-Slide
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "../../assets/css/media.css";
 // Component
-import Title from "../Title/Title";
+import Title from "../Title";
 const MediaList = (props) => {
-  const { title } = props;
-  const { data } = useSWR(["/movie/now_playing"], movieFetcher);
+  const { title, movieData } = props;
+  const { data } = useSWR(movieData ? [movieData] : null, movieFetcher);
   return (
     <div className="">
       <Title className="text-white">{title}</Title>

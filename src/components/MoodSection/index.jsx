@@ -1,5 +1,5 @@
 // Component
-import Title from "../Title/Title";
+import Title from "../Title";
 import MoodCard from "./MoodCard";
 // Constant
 import { TOPIC } from "../../constant";

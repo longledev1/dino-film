@@ -1,0 +1,9 @@
+.swiper-button-next,
+.swiper-button-prev {
+  @apply flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 text-white shadow-lg transition hover:bg-gray-600;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  @apply text-lg font-bold;
+}

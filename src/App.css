@@ -4,19 +4,6 @@
   padding: 24px 16px;
 }
 
-.swiper-slide {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.swiper-slide img {
-  display: block;
-  max-width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .card {
   position: relative;
   display: flex;
