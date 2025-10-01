@@ -14,14 +14,29 @@ import { movieFetcher } from "../../services/fetcher";
 const MovieNew = (props) => {
   const { title, movieData } = props;
   const { data } = useSWR(movieData ? [movieData] : null, movieFetcher);
-  console.log({ data });
   return (
     <div>
       <Title className={"mb-4 text-white"}>{title}</Title>
       <Swiper
         spaceBetween={20}
         slidesPerView={5} // default cho màn hình lớn
-        grabCursor={true}
+        breakpoints={{
+          320: {
+            // mobile nhỏ
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          640: {
+            // mobile lớn
+            slidesPerView: 3,
+            spaceBetween: 15,
+          },
+          1024: {
+            // desktop nhỏ
+            slidesPerView: 5,
+            spaceBetween: 20,
+          },
+        }}
       >
         {data?.results &&
           data?.results.slice(0, 10).map((movie, index) => (

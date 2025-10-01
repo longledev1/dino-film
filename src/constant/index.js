@@ -73,12 +73,17 @@ export const TABS_TOP_RATED = [
   },
 ];
 
+// base url genres
+export const GENRES_URL = "/genre/movie/list";
+
 // Media data fetch URLs
 export const MEDIA_DATA = {
-  nowPlayingMovies: "/movie/now_playing",
-  popularMovies: "/movie/popular",
-  trendingTV: "/trending/tv/day",
-  trendingMovies: "/trending/movie/day",
-  chineseMovies: "/discover/movie?with_original_language=zh",
-  disneyMovies: "/discover/movie?with_companies=2",
+  NOW_PLAYING_MOVIES: "/movie/now_playing",
+  POPULAR_MOVIES: "/movie/popular",
+  TRENDING_TV: "/trending/tv/day",
+  TRENDING_MOVIES: "/trending/movie/day",
+  CHINESE_MOVIES: "/discover/movie?with_original_language=zh",
+  DISNEY_MOVIES: "/discover/movie?with_companies=2",
+  ANIME_MOVIES:
+    "/discover/movie?with_genres=16&with_original_language=ja&sort_by=popularity.desc",
 };

@@ -27,6 +27,7 @@ export default function FeatureMovie() {
 
   const movies = useMemo(() => popular?.results?.slice(0, 4) || [], [popular]);
   const categoryMovie = useMemo(() => category?.genres || [], [category]);
+
   const activeMovie = movies[index];
 
   const loading = popularLoading || categoryLoading;
