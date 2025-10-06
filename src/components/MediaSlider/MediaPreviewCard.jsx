@@ -1,10 +1,20 @@
 // base image url
-import { imageTMDB } from "../../constant";
+import { IMAGE_BASE_URL } from "@constants";
 // Icons
 import { FaPlayCircle, FaRegBookmark } from "react-icons/fa";
+// Link
+import { Link } from "react-router-dom";
 const MediaPreviewCard = (props) => {
-  const { background, title, date, overview, genres, categoryMovie, point } =
-    props;
+  const {
+    id,
+    background,
+    title,
+    date,
+    overview,
+    genres,
+    categoryMovie,
+    point,
+  } = props;
   const getCategoryMovie = genres?.map((id) => {
     const category = categoryMovie.find((c) => {
       return c.id === id;
@@ -17,9 +27,11 @@ const MediaPreviewCard = (props) => {
       <div className="relative flex h-[600px] w-full flex-col-reverse overflow-hidden rounded-[20px] bg-gray-800 lg:h-[460px] lg:flex-row">
         {/* Background màu bên trái */}
         <div className="w-ful relative z-10 mt-[-30px] flex h-full flex-col justify-center bg-gray-800 p-4 text-white lg:w-1/3 lg:p-8">
-          <h2 className="mb-2 w-full !text-[20px] font-bold md:text-6xl lg:ml-0 lg:w-[800px] lg:!text-[25px]">
-            {title}
-          </h2>
+          <Link to={`/movie/${id}`}>
+            <h2 className="mb-2 w-full cursor-pointer !text-[20px] font-bold hover:text-yellow-200 md:text-6xl lg:ml-0 lg:w-[800px] lg:!text-[25px]">
+              {title}
+            </h2>
+          </Link>
           <p className="text-sub mb-2">{date}</p>
           <div className="mb-2 flex items-center gap-x-4">
             <button className="w-fit rounded-[4px] border-2 border-yellow-300 p-2 text-[12px] font-bold">
@@ -64,7 +76,7 @@ const MediaPreviewCard = (props) => {
         {/* Ảnh bên phải */}
         <div className="relative w-full lg:w-2/3">
           <img
-            src={`${imageTMDB}/original${background}`}
+            src={`${IMAGE_BASE_URL}/original${background}`}
             className="h-full !w-[100%] object-cover"
             alt="Fire Force"
           />

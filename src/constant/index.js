@@ -1,5 +1,5 @@
 // Image base URL (w185, w342, w500, w780, original)
-export const imageTMDB = "https://image.tmdb.org/t/p";
+export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
 // TOPIC
 export const TOPIC = [
@@ -86,4 +86,10 @@ export const MEDIA_DATA = {
   DISNEY_MOVIES: "/discover/movie?with_companies=2",
   ANIME_MOVIES:
     "/discover/movie?with_genres=16&with_original_language=ja&sort_by=popularity.desc",
+};
+
+export const DETAILS_DATA = {
+  MOVIE: (id) => `/movie/${id}?append_to_response=release_dates,credits`,
+  RECOMMENDATIONS_MOVIES: (id) => `/movie/${id}/recommendations`,
+  RECOMMENDATIONS_TV: (id) => `/tv/${id}/recommendations`,
 };

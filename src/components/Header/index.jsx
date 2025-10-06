@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { IoIosSearch } from "react-icons/io";
-
+import { Link } from "react-router-dom";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -15,13 +15,14 @@ export default function Header() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
-        isScrolled ? "bg-black/80 backdrop-blur" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 z-50 w-full px-[20px] py-[25px] transition-colors duration-300 ${isScrolled ? "bg-black/80 backdrop-blur" : "bg-transparent"}`}
     >
-      <div className="flex items-center justify-between px-6 py-4">
+      <div className="flex items-center justify-between">
         {/* Logo */}
-        <img className="w-38" src="/images/logo.svg" alt="" />
+        <Link to="/">
+          <img className="w-38" src="/images/logo.svg" alt="" />
+        </Link>
+
         {/* Menu */}
         <ul className="hidden space-x-6 md:flex">
           <li>

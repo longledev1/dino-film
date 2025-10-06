@@ -1,0 +1,33 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  height: auto !important;
+}
+
+.swiper-grid-column > .swiper-wrapper {
+  row-gap: 1rem !important;
+}
+.related-swiper .swiper-slide {
+  height: auto !important;
+}
+.related-swiper .swiper-wrapper {
+  row-gap: 0.5rem !important;
+  margin-bottom: 60px;
+}
+
+.related-swiper .swiper-pagination-bullet {
+  background-color: #999;
+  opacity: 0.6;
+}
+
+.related-swiper .swiper-pagination-bullet-active {
+  background-color: #f4dda2; /* ví dụ màu amber-400 giống theme bạn */
+  opacity: 1;
+}

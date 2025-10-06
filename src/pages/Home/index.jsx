@@ -1,22 +1,20 @@
-// Component
-import FeatureMovie from "./components/FeatureMovie";
-import Header from "./components/Header";
-import InfiniteSlider from "./components/InfiniteSlider";
-import MediaList from "./components/MediaList";
-import MoodSection from "./components/MoodSection";
-import MediaSection from "./components/MediaSection";
-import MovieNew from "./components/MovieNew";
-import MediaSlider from "./components/MediaSlider";
-import Footer from "./components/Footer";
+import React, { useEffect } from "react";
+// Components
+import FeatureMovie from "@components/FeatureMovie";
+import MoodSection from "@components/MoodSection";
+import MediaList from "@components/MediaList";
+import MediaSection from "@components/MediaSection";
+import MovieNew from "@components/MovieNew";
+import MediaSlider from "@components/MediaSlider";
+import BackToTopButton from "@components/BackToTopButton";
 // Constant
-import { TABS_TRENDING, TABS_TOP_RATED, MEDIA_DATA } from "./constant";
-import "./App.css";
-import BackToTopButton from "./components/BackToTopButton";
-function App() {
+import { MEDIA_DATA, TABS_TOP_RATED, TABS_TRENDING } from "@constants";
+function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="bg-[#181b24]">
-      {/* HEADER */}
-      <Header />
       {/* BANNER FEATURE */}
       <FeatureMovie />
       {/* MAIN */}
@@ -57,11 +55,10 @@ function App() {
           />
         </div>
       </div>
-      {/* FOOTER */}
-      <Footer />
+
       <BackToTopButton></BackToTopButton>
     </div>
   );
 }
 
-export default App;
+export default Home;

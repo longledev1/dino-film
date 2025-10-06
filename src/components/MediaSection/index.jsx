@@ -6,7 +6,7 @@ import { useState, useCallback, useMemo } from "react";
 // SWR
 import useSWR from "swr";
 // Service
-import { movieFetcher } from "../../services/fetcher";
+import { movieFetcher } from "@services/fetcher";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -38,7 +38,7 @@ const MediaSection = (props) => {
   return (
     <div>
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-x-2">
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2 text-left">
           <span className="text-2xl">
             {title === "Hot Right Now" ? "🔥" : "⭐"}{" "}
           </span>
@@ -113,6 +113,7 @@ const MediaSection = (props) => {
             trendingData?.results.map((movie) => (
               <SwiperSlide key={movie.id} className="">
                 <MovieCard
+                  id={movie?.id}
                   title={movie?.title || movie?.name}
                   className={"p-2"}
                   onDesktop={true}

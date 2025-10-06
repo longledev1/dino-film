@@ -1,9 +1,11 @@
 import { useMemo, useRef, useState } from "react";
+
 // Component
 import Title from "../Title";
 import MediaPreviewCard from "./MediaPreviewCard";
 import ImageIndicator from "./ImageIndicator";
 import CircleIndicator from "./CircleIndicator";
+
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -18,15 +20,12 @@ import { EffectFade } from "swiper/modules";
 // useSWR
 import useSWR from "swr";
 
-// movieFetcher
-import { movieFetcher } from "../../services/fetcher";
-
 // Constant
-import { GENRES_URL } from "../../constant";
+import { GENRES_URL } from "@constants";
+import { movieFetcher } from "@services/fetcher";
 
 const MediaSlider = (props) => {
   const [index, setIndex] = useState(0);
-  console.log("🚀 ~ MediaSlider ~ index:", index);
   const { title, movieData } = props;
   const { data } = useSWR(movieData ? [movieData] : null, movieFetcher);
   const { data: category } = useSWR(
@@ -42,8 +41,6 @@ const MediaSlider = (props) => {
       swiperRef.current.slideTo(i);
     }
   };
-
-  console.log(movies);
 
   return (
     <div>
@@ -61,6 +58,7 @@ const MediaSlider = (props) => {
         {movies.map((movie, index) => (
           <SwiperSlide key={movie.id}>
             <MediaPreviewCard
+              id={movie.id}
               index={index}
               background={movie.backdrop_path}
               title={movie.name || movie.title}

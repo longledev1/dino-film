@@ -45,6 +45,7 @@ const MovieNew = (props) => {
               key={movie.id}
             >
               <MovieNewCard
+                id={movie.id}
                 index={index}
                 poster={movie.poster_path}
                 title={movie.name || movie.title}

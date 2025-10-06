@@ -1,4 +1,4 @@
-import { imageTMDB } from "../../constant";
+import { IMAGE_BASE_URL } from "@constants";
 const ImageIndicator = (props) => {
   const { movies, index, onPreviewClick } = props;
   return (
@@ -15,7 +15,7 @@ const ImageIndicator = (props) => {
             onClick={() => onPreviewClick(i)}
           >
             <img
-              src={`${imageTMDB}/w300/${movie.backdrop_path}`}
+              src={`${IMAGE_BASE_URL}/w300/${movie.backdrop_path}`}
               alt=""
               className="h-full w-full rounded-md object-cover"
             />

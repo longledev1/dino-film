@@ -2,7 +2,7 @@
 import Title from "../Title";
 import MoodCard from "./MoodCard";
 // Constant
-import { TOPIC } from "../../constant";
+import { TOPIC } from "@constants";
 const MoodSection = () => {
   return (
     <div className="">

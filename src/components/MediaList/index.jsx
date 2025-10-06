@@ -3,7 +3,7 @@ import useSWR from "swr";
 // Component
 import MovieCard from "./MovieCard";
 // movieFetcher
-import { movieFetcher } from "../../services/fetcher";
+import { movieFetcher } from "@services/fetcher";
 // Swiper-Slide
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -13,6 +13,7 @@ import Title from "../Title";
 const MediaList = (props) => {
   const { title, movieData } = props;
   const { data } = useSWR(movieData ? [movieData] : null, movieFetcher);
+  console.log("🚀 ~ MediaList ~ data:", data);
   return (
     <div className="">
       <Title className="text-white">{title}</Title>
@@ -52,6 +53,7 @@ const MediaList = (props) => {
             data?.results.map((movie) => (
               <SwiperSlide key={movie.id}>
                 <MovieCard
+                  id={movie.id}
                   title={movie.title}
                   date={movie.release_date}
                   point={movie.vote_average}
