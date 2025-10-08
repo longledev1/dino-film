@@ -50,6 +50,7 @@ const MovieNew = (props) => {
                 poster={movie.poster_path}
                 title={movie.name || movie.title}
                 date={movie.first_air_date || movie.release_date}
+                type={movie.media_type}
               />
             </SwiperSlide>
           ))}

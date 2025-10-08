@@ -2,17 +2,21 @@ import React from "react";
 import CircularProgress from "../MediaList/CircularProgress";
 import { IMAGE_BASE_URL } from "@/constant";
 import { Link } from "react-router-dom";
+import ImageComponent from "@components/ImageComponent";
 
 const RelatedMediaCard = (props) => {
-  const { id, title, poster, point } = props;
+  const { id, title, poster, point, type, date } = props;
+
   return (
-    <Link to={`/movie/${id}`}>
-      <div className="group flex cursor-pointer flex-col items-center justify-center gap-y-8">
+    <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
+      <div className="group t flex cursor-pointer flex-col items-center justify-center gap-y-8">
         <div className="relative group-hover:opacity-75">
-          <img
+          <ImageComponent
             src={`${IMAGE_BASE_URL}/original/${poster}`}
             alt=""
-            className="!h-[304px] rounded-lg object-cover"
+            className="rounded-lg object-cover"
+            width={203}
+            height={304}
           />
           <div className="absolute left-5 -translate-y-[50%] transform">
             <CircularProgress
@@ -20,11 +24,11 @@ const RelatedMediaCard = (props) => {
             ></CircularProgress>
           </div>
         </div>
-        <div className="text-center">
-          <p className="w-full text-base font-bold text-amber-200">
+        <div className="text-center text-[14px] sm:text-base">
+          <p className="w-full font-bold text-amber-200">
             {title.slice(0, 20)}
           </p>
-          <p className="text-[14px] font-thin text-white">2025-18-08</p>
+          <p className="font-thin text-white">{date}</p>
         </div>
       </div>
     </Link>

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Title from "@components/Title";
 import ActorInfo from "./ActorInfo";
-import { IoMdArrowDropdownCircle } from "react-icons/io";
-import { IoMdArrowDropupCircle } from "react-icons/io";
+import ShowMoreButton from "@components/ShowMoreButton";
 
 const ActorList = ({ title, actors }) => {
   const [isShowMore, setIsShowMore] = useState(false);
@@ -23,19 +22,12 @@ const ActorList = ({ title, actors }) => {
             ></ActorInfo>
           ))}
       </div>
-      <div
-        onClick={() => setIsShowMore(!isShowMore)}
-        className="group flex w-fit cursor-pointer items-center gap-x-2 rounded-md"
-      >
-        {isShowMore ? (
-          <IoMdArrowDropupCircle className="text-3xl text-amber-200 group-hover:opacity-80" />
-        ) : (
-          <IoMdArrowDropdownCircle className="text-3xl text-amber-200 group-hover:opacity-80" />
-        )}
-        <p className="cursor-pointer transition duration-200 group-hover:text-amber-200">
-          {isShowMore ? "Show less" : "Show more"}
-        </p>
-      </div>
+      <ShowMoreButton
+        setIsShowMore={setIsShowMore}
+        isShowMore={isShowMore}
+        currentData={currentActors}
+        visibleLimit={4}
+      ></ShowMoreButton>
     </div>
   );
 };

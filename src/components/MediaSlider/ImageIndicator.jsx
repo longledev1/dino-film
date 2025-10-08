@@ -1,4 +1,5 @@
 import { IMAGE_BASE_URL } from "@constants";
+import ImageComponent from "@components/ImageComponent";
 const ImageIndicator = (props) => {
   const { movies, index, onPreviewClick } = props;
   return (
@@ -14,9 +15,11 @@ const ImageIndicator = (props) => {
             key={movie.id}
             onClick={() => onPreviewClick(i)}
           >
-            <img
+            <ImageComponent
               src={`${IMAGE_BASE_URL}/w300/${movie.backdrop_path}`}
               alt=""
+              width={55}
+              height={85}
               className="h-full w-full rounded-md object-cover"
             />
           </div>

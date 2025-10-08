@@ -4,10 +4,12 @@ import CircularProgress from "./CircularProgress";
 import { IMAGE_BASE_URL } from "@constants";
 // Link
 import { Link } from "react-router-dom";
+import ImageComponent from "@components/ImageComponent";
 const MovieCard = (props) => {
   const { id, title, date, point, poster, type, className, onDesktop } = props;
+
   return (
-    <Link to={`/movie/${id}`}>
+    <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
       <div className="rounded-md bg-gray-800 text-white">
         {type === "tv" ? (
           <p className="bg-button absolute top-1 left-1 rounded-md p-1 text-white">
@@ -16,11 +18,20 @@ const MovieCard = (props) => {
         ) : (
           ""
         )}
-        <img
-          className="cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50"
+        <ImageComponent
+          width={170}
+          height={255}
+          title={"Movie"}
+          src={`${IMAGE_BASE_URL}/w500/${poster}`}
+          className="w-full cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50"
+        />
+        {/* <img
+          className="w-full cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50"
           src={`${IMAGE_BASE_URL}/w500/${poster}`}
           alt="Movie"
-        />
+          width={170}
+          height={255}
+        /> */}
 
         {/* Nội dung */}
         <div className="left-[5 px] relative top-[-4vw] lg:top-[-1.2vw]">
@@ -29,7 +40,9 @@ const MovieCard = (props) => {
             percent={Math.round(point * 10)}
           ></CircularProgress>
         </div>
-        <div className={`mt-[-20px] ${className ? className : "p-1"}`}>
+        <div
+          className={`mt-[-20px] ${className ? className : "p-1"} text-[14px] sm:text-base`}
+        >
           <div className="group relative text-[14px]">
             <p
               className={`hover:text-button mt-4 truncate text-left font-bold hover:cursor-pointer lg:mt-2 ${onDesktop ? "w-50" : ""}`}

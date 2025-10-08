@@ -4,6 +4,7 @@ import { IMAGE_BASE_URL } from "@constants";
 import { FaPlayCircle, FaRegBookmark } from "react-icons/fa";
 // Link
 import { Link } from "react-router-dom";
+import ImageComponent from "@/components/ImageComponent";
 const MediaPreviewCard = (props) => {
   const {
     id,
@@ -26,7 +27,7 @@ const MediaPreviewCard = (props) => {
     <div className="relative">
       <div className="relative flex h-[600px] w-full flex-col-reverse overflow-hidden rounded-[20px] bg-gray-800 lg:h-[460px] lg:flex-row">
         {/* Background màu bên trái */}
-        <div className="w-ful relative z-10 mt-[-30px] flex h-full flex-col justify-center bg-gray-800 p-4 text-white lg:w-1/3 lg:p-8">
+        <div className="w-ful relative z-10 mt-[-30px] flex h-full flex-col justify-center bg-gray-800 p-4 text-left text-white lg:w-1/3 lg:p-8">
           <Link to={`/movie/${id}`}>
             <h2 className="mb-2 w-full cursor-pointer !text-[20px] font-bold hover:text-yellow-200 md:text-6xl lg:ml-0 lg:w-[800px] lg:!text-[25px]">
               {title}
@@ -56,7 +57,7 @@ const MediaPreviewCard = (props) => {
           <p className="mb-2 text-[25px] font-bold text-white">Overview</p>
 
           <div className="relative z-10 mb-6 w-full leading-normal lg:w-[600px]">
-            <p className="text-[14px]">
+            <p className="text-[14px] sm:text-base">
               {overview.length > 200
                 ? overview.slice(0, 200) + "..."
                 : overview}
@@ -75,10 +76,12 @@ const MediaPreviewCard = (props) => {
         </div>
         {/* Ảnh bên phải */}
         <div className="relative w-full lg:w-2/3">
-          <img
+          <ImageComponent
             src={`${IMAGE_BASE_URL}/original${background}`}
             className="h-full !w-[100%] object-cover"
             alt="Fire Force"
+            width={912}
+            height={460}
           />
 
           {/* Layer gradient để blend với màu nền bên trái */}

@@ -22,7 +22,7 @@ const Movie = (props) => {
       </div>
 
       {/* Nội dung Hero */}
-      <div className="relative z-10 container flex h-full flex-col items-start justify-end text-white">
+      <div className="relative z-10 container flex h-full flex-col items-start justify-end text-[14px] text-white sm:text-base">
         <div className="mb-10">
           <h2 className="mb-2 w-full text-4xl font-bold md:text-6xl lg:w-[800px]">
             {data?.title}

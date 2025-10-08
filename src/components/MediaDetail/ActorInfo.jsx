@@ -1,13 +1,13 @@
 import React from "react";
 import { IMAGE_BASE_URL } from "@constants";
+import ImageComponent from "@components/ImageComponent";
 const ActorInfo = (props) => {
   const { id, name, image, character } = props;
 
   return (
     <div className="cursor-pointer overflow-hidden rounded-lg border-3 border-gray-900 shadow-sm transition duration-200 hover:border-amber-200">
       <div className="relative">
-        {" "}
-        <img
+        <ImageComponent
           src={
             image
               ? `${IMAGE_BASE_URL}/w276_and_h350_face${image}`
@@ -15,6 +15,8 @@ const ActorInfo = (props) => {
           }
           alt=""
           className="hover: !w-full object-cover hover:opacity-50"
+          width={197}
+          height={250}
         />
       </div>
 

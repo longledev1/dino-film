@@ -1,4 +1,3 @@
-import { groupBy } from "lodash";
 import { IMAGE_BASE_URL } from "@constants";
 // Icon
 import { FaPlay } from "react-icons/fa";
@@ -6,58 +5,58 @@ import { FaPlay } from "react-icons/fa";
 import CircularProgress from "../MediaList/CircularProgress";
 // Constant
 import { formatRuntime } from "@/constant/ultil";
-const Banner = ({ mediaInfo }) => {
-  console.log("🚀 ~ Banner ~ mediaInfo:", mediaInfo);
-  const certification = (
-    (mediaInfo?.release_dates?.results || []).find(
-      (results) => results?.iso_3166_1 === "US",
-    )?.release_dates || []
-  ).find((releaseDate) => releaseDate.certification)?.certification;
-
-  const crews = (mediaInfo?.credits?.crew || [])
-    .filter((crew) => ["Director", "Screenplay", "Writer"].includes(crew?.job))
-    .map((crew) => ({
-      id: crew.id,
-      name: crew.name,
-      job: crew.job,
-    }));
-
-  const groupCrews = groupBy(crews, "job");
+import ImageComponent from "@components/ImageComponent";
+const Banner = ({
+  title,
+  background,
+  poster,
+  overview,
+  point,
+  groupCrews,
+  certification,
+  runtime,
+  date,
+  genres,
+  contentRating,
+}) => {
+  const cert = certification || "G";
   return (
     <>
       <div
         className="relative h-[400px] w-full bg-cover lg:h-[600px]"
         style={{
-          backgroundImage: `url(${mediaInfo?.backdrop_path ? `${IMAGE_BASE_URL}/original/${mediaInfo?.backdrop_path}` : "/images/comming_soon.png"})`,
+          backgroundImage: `url(${background ? `${IMAGE_BASE_URL}/original/${background}` : "/images/comming_soon.png"})`,
           filter: "brightness(20%)",
         }}
       ></div>
-      <div className="relative -mt-[230px] text-white">
+      <div
+        className={`${runtime ? `relative -mt-[230px] text-white` : `relative -mt-[200px] text-white`}`}
+      >
         <div className="container">
-          <div className="l flex flex-col items-center gap-x-12 lg:flex-row lg:items-start">
-            <img
-              src={`${IMAGE_BASE_URL}/original/${mediaInfo?.poster_path}`}
+          <div className="l flex flex-col items-center gap-x-12 text-[14px] sm:text-base lg:flex-row lg:items-start">
+            <ImageComponent
+              src={`${IMAGE_BASE_URL}/original/${poster}`}
               alt=""
-              className="w-[200px] rounded-md object-cover transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer"
+              className="rounded-md object-cover transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer"
+              width={200}
+              height={300}
             />
             <div className="flex flex-col items-center gap-y-4 lg:items-start">
-              <h2 className="mt-4 text-xl font-bold lg:mt-0 lg:text-2xl">
-                {mediaInfo?.title || mediaInfo?.name}
+              <h2 className="mt-4 text-center text-xl font-bold lg:mt-0 lg:text-2xl">
+                {title}
               </h2>
-              <p>{formatRuntime(mediaInfo?.runtime)}</p>
+              {runtime && <p>{formatRuntime(runtime)}</p>}
               <div className="flex items-center gap-x-4">
-                <div className="flex h-10 w-fit items-center justify-center border-1 border-gray-200 p-1 text-[16px] font-bold">
-                  {certification || "G"}
+                <div className="flex h-10 w-fit items-center justify-center border-1 border-gray-200 p-1 font-bold">
+                  {cert || contentRating}
                 </div>
-                <p>{mediaInfo?.release_date}</p>
-                <p>
-                  {mediaInfo?.genres.map((genre) => genre.name).join(",  ")}
-                </p>
+                <p>{date}</p>
+                <p>{genres.map((genre) => genre.name).join(",  ")}</p>
               </div>
               <div className="flex items-center gap-x-4">
                 {(
                   <CircularProgress
-                    percent={Math.round(mediaInfo?.vote_average * 10 || 0 * 10)}
+                    percent={Math.round(point * 10 || 0 * 10)}
                   ></CircularProgress>
                 ) || "Not found point"}
                 <p className="font-bold">Rating</p>
@@ -71,8 +70,8 @@ const Banner = ({ mediaInfo }) => {
                   <p className="text-[20px] font-bold text-yellow-200">
                     Overview
                   </p>
-                  <p className="text-justify leading-6">
-                    {mediaInfo?.overview}
+                  <p className="text-[14px] leading-6 sm:text-justify sm:text-base">
+                    {overview}
                   </p>
                 </div>
                 <div className="grid grid-cols-2">

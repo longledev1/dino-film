@@ -5,6 +5,8 @@ import Loading from "@components/Loading";
 import Banner from "@components/MediaDetail/Banner";
 import ActorList from "@components/MediaDetail/ActorList";
 import RelatedMediaList from "@/components/MediaDetail/RelatedMediaList";
+import TVShowInformation from "@/components/MediaDetail/TVShowInformation";
+import SeasonList from "@/components/MediaDetail/SeasonList";
 // React Router
 import { useParams } from "react-router";
 // useSWR
@@ -12,39 +14,43 @@ import useSWR from "swr";
 // Constant
 import { DETAILS_DATA } from "@constants";
 import { movieFetcher } from "@services/fetcher";
-import MovieInformation from "@/components/MediaDetail/MovieInformation";
 import { groupBy } from "lodash";
 
-const MovieDetails = () => {
+const TVShowDetails = () => {
   const { id } = useParams();
 
-  const movieDetailData = DETAILS_DATA?.MOVIE(id);
-  const movieRelatedData = DETAILS_DATA?.RECOMMENDATIONS_MOVIES(id);
+  const tvShowDetailData = DETAILS_DATA?.TV(id);
+  const tvShowRelatedDataList = DETAILS_DATA?.RECOMMENDATIONS_TV(id);
 
   const { data, isLoading } = useSWR(
-    movieDetailData ? [movieDetailData] : null,
+    tvShowDetailData ? [tvShowDetailData] : null,
     movieFetcher,
   );
-  const { data: movieRelatedList, isLoading: isMovieRelatedListLoading } =
-    useSWR(movieRelatedData ? [movieRelatedData] : null, movieFetcher);
+  console.log("🚀 ~ TVShowDetails ~ data:", data);
 
-  console.log("🚀 ~ MovieDetails ~ data:", data);
+  const { data: tvShowRelatedData, isLoading: isTvShowRelatedListLoading } =
+    useSWR(
+      tvShowRelatedDataList ? [tvShowRelatedDataList] : null,
+      movieFetcher,
+    );
+
+  const contentRating =
+    (data?.content_ratings?.results || []).find(
+      (results) => results?.iso_3166_1 === "US",
+    )?.rating || [];
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const certification = (
-    (data?.release_dates?.results || []).find(
-      (results) => results?.iso_3166_1 === "US",
-    )?.release_dates || []
-  ).find((releaseDate) => releaseDate.certification)?.certification;
-
   const crews = (data?.credits?.crew || [])
-    .filter((crew) => ["Director", "Screenplay", "Writer"].includes(crew?.job))
+    .filter((crew) =>
+      ["Directing", "Writing", "Writer"].includes(crew?.known_for_department),
+    )
     .map((crew) => ({
       id: crew.id,
       name: crew.name,
-      job: crew.job,
+      job: crew.known_for_department,
     }));
 
   const groupCrews = groupBy(crews, "job");
@@ -55,33 +61,35 @@ const MovieDetails = () => {
   return (
     <div>
       <Banner
-        mediaInfo={data}
         title={data?.title || data?.name}
         background={data?.backdrop_path}
         poster={data?.poster_path}
         overview={data?.overview}
         point={data?.vote_average}
-        genres={data?.genres}
-        certification={certification}
+        contentRating={contentRating}
         groupCrews={groupCrews}
+        genres={data?.genres}
         type={data?.media_type}
-        date={data?.release_date}
+        date={data?.release_date || data?.first_air_date}
         runtime={data?.runtime}
       />
       <div className="container">
-        <div className="flex gap-x-6 gap-y-6">
-          <div className="flex-[4]">
+        <div className="mb-6 flex gap-x-6 gap-y-6">
+          <div className={data?.credits?.cast != "" ? `flex-[4]` : "hidden"}>
             <ActorList title={"Actor List"} actors={data?.credits?.cast} />
           </div>
           <div className="flex-1">
-            <MovieInformation movieInfo={data}></MovieInformation>
+            <TVShowInformation tvInfo={data}></TVShowInformation>
           </div>
+        </div>
+        <div>
+          <SeasonList seasons={data.seasons.reverse()}></SeasonList>
         </div>
         <div className="mt-6">
           <RelatedMediaList
-            isMovieRelatedListLoading={isMovieRelatedListLoading}
-            relatedList={movieRelatedList?.results}
-            title={"Similar Movies for you"}
+            isMovieRelatedListLoading={isTvShowRelatedListLoading}
+            relatedList={tvShowRelatedData?.results}
+            title={"Similar TV SHOW for you"}
           ></RelatedMediaList>
         </div>
       </div>
@@ -89,4 +97,4 @@ const MovieDetails = () => {
   );
 };
 
-export default MovieDetails;
+export default TVShowDetails;

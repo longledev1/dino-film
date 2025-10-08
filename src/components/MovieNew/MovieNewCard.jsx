@@ -1,19 +1,22 @@
 import { Link } from "react-router-dom";
 import { IMAGE_BASE_URL } from "@constants";
+import ImageComponent from "@components/ImageComponent";
 import "./MovieNewCard.css";
-const MovieNewCard = ({ id, poster, title, date, index }) => {
+const MovieNewCard = ({ type, id, poster, title, date, index }) => {
   const skewClass = index % 2 === 0 ? "skew-y-3" : "-skew-y-3";
 
   return (
-    <Link to={`/movie/${id}`}>
+    <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
       <div className="shadow-4xl group">
         <div
           className={`relative transform cursor-pointer overflow-hidden rounded-md shadow-2xl ${skewClass}`}
         >
-          <img
+          <ImageComponent
             src={`${IMAGE_BASE_URL}/w500${poster}`}
             alt={title}
-            className="h-96 w-64 rounded-md object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full rounded-md object-cover transition-transform duration-500 group-hover:scale-105"
+            width={256}
+            height={397}
           />
 
           {/* Overlay vàng */}

@@ -90,6 +90,7 @@ export const MEDIA_DATA = {
 
 export const DETAILS_DATA = {
   MOVIE: (id) => `/movie/${id}?append_to_response=release_dates,credits`,
+  TV: (id) => `/tv/${id}?append_to_response=content_ratings,credits`,
   RECOMMENDATIONS_MOVIES: (id) => `/movie/${id}/recommendations`,
   RECOMMENDATIONS_TV: (id) => `/tv/${id}/recommendations`,
 };
