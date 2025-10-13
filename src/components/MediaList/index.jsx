@@ -10,10 +10,8 @@ import "swiper/css";
 import "../../assets/css/media.css";
 // Component
 import Title from "../Title";
-const MediaList = (props) => {
-  const { title, movieData } = props;
+const MediaList = ({ title, movieData }) => {
   const { data } = useSWR(movieData ? [movieData] : null, movieFetcher);
-  console.log("🚀 ~ MediaList ~ data:", data);
   return (
     <div className="">
       <Title className="text-white">{title}</Title>

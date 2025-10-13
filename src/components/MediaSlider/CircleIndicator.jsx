@@ -1,6 +1,4 @@
-const CircleIndicator = (props) => {
-  const { movies, index, onPreviewClick } = props;
-
+const CircleIndicator = ({ movies, index, onPreviewClick }) => {
   return (
     <div className="flex gap-2">
       {movies &&

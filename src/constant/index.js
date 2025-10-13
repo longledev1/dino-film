@@ -89,8 +89,10 @@ export const MEDIA_DATA = {
 };
 
 export const DETAILS_DATA = {
-  MOVIE: (id) => `/movie/${id}?append_to_response=release_dates,credits`,
-  TV: (id) => `/tv/${id}?append_to_response=content_ratings,credits`,
+  MOVIE: (id) => `/movie/${id}?append_to_response=release_dates,credits,videos`,
   RECOMMENDATIONS_MOVIES: (id) => `/movie/${id}/recommendations`,
+  TV: (id) => `/tv/${id}?append_to_response=content_ratings,credits,videos`,
   RECOMMENDATIONS_TV: (id) => `/tv/${id}/recommendations`,
+  SEASONS_TV: (id, number) =>
+    `/tv/${id}/season/${number}?append_to_response=content_ratings,credits,videos`,
 };

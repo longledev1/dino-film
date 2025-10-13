@@ -5,9 +5,16 @@ import { IMAGE_BASE_URL } from "@constants";
 // Link
 import { Link } from "react-router-dom";
 import ImageComponent from "@components/ImageComponent";
-const MovieCard = (props) => {
-  const { id, title, date, point, poster, type, className, onDesktop } = props;
-
+const MovieCard = ({
+  id,
+  title,
+  date,
+  point,
+  poster,
+  type,
+  className,
+  onDesktop,
+}) => {
   return (
     <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
       <div className="rounded-md bg-gray-800 text-white">

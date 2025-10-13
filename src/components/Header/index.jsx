@@ -15,7 +15,7 @@ export default function Header() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 z-50 w-full px-[20px] py-[25px] transition-colors duration-300 ${isScrolled ? "bg-black/80 backdrop-blur" : "bg-transparent"}`}
+      className={`fixed top-0 left-0 z-30 w-full px-[20px] py-[25px] transition-colors duration-300 ${isScrolled ? "bg-black/80 backdrop-blur" : "bg-transparent"}`}
     >
       <div className="flex items-center justify-between">
         {/* Logo */}

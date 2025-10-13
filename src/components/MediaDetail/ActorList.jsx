@@ -5,7 +5,7 @@ import ShowMoreButton from "@components/ShowMoreButton";
 
 const ActorList = ({ title, actors }) => {
   const [isShowMore, setIsShowMore] = useState(false);
-  const currentActors = isShowMore ? actors.slice(0, 12) : actors.slice(0, 5);
+  const currentActors = isShowMore ? actors?.slice(0, 12) : actors?.slice(0, 5);
   return (
     <div className="text-white">
       <Title>{title}</Title>
@@ -25,7 +25,7 @@ const ActorList = ({ title, actors }) => {
       <ShowMoreButton
         setIsShowMore={setIsShowMore}
         isShowMore={isShowMore}
-        currentData={currentActors}
+        currentData={actors}
         visibleLimit={4}
       ></ShowMoreButton>
     </div>

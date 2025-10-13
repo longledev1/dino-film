@@ -1,7 +1,6 @@
 import { IMAGE_BASE_URL } from "@constants";
 import ImageComponent from "@components/ImageComponent";
-const ImageIndicator = (props) => {
-  const { movies, index, onPreviewClick } = props;
+const ImageIndicator = ({ movies, index, onPreviewClick }) => {
   return (
     <>
       {movies &&

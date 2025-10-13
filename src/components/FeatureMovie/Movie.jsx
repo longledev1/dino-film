@@ -1,13 +1,18 @@
 // React Icons
+import { useModalContext } from "@/context/ModalProvider";
 import { FaPlayCircle } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa";
-const Movie = (props) => {
-  const { data, categoryMovie } = props;
+import TrailerVideo from "@components/TrailerVideo";
+const Movie = ({ data, categoryMovie, trailerKey }) => {
   const getCategoryMovie = data?.genre_ids.map((id) => {
     const category = categoryMovie.find((c) => c.id === id);
     return category ? category.name : null;
   });
-
+  const { setContent, setIsModalShowing } = useModalContext();
+  const handleOpenTrailer = () => {
+    setIsModalShowing(true);
+    setContent(<TrailerVideo key={trailerKey} trailerKey={trailerKey} />);
+  };
   return (
     <>
       {/* Background Poster */}
@@ -45,7 +50,10 @@ const Movie = (props) => {
           <p className="mb-2 text-2xl font-bold text-white">Overview</p>
           <p className="mb-6 max-w-xl">{data?.overview}</p>
           <div className="flex space-x-4">
-            <button className="bg-button flex cursor-pointer items-center gap-x-2 rounded-lg px-6 py-3 font-semibold hover:bg-green-700">
+            <button
+              className="bg-button flex cursor-pointer items-center gap-x-2 rounded-lg px-6 py-3 font-semibold hover:bg-green-700"
+              onClick={handleOpenTrailer}
+            >
               <FaPlayCircle className="text-xl"></FaPlayCircle>
               <span>Watch Trailer</span>
             </button>

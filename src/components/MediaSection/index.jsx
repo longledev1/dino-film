@@ -13,9 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "../../assets/css/media.css";
 
-const MediaSection = (props) => {
-  const { title, tabs } = props;
-
+const MediaSection = ({ title, tabs }) => {
   const [activeTabID, setActiveTabID] = useState(tabs[0].id);
 
   const url = useMemo(() => {

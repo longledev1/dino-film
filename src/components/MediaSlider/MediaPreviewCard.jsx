@@ -5,17 +5,16 @@ import { FaPlayCircle, FaRegBookmark } from "react-icons/fa";
 // Link
 import { Link } from "react-router-dom";
 import ImageComponent from "@/components/ImageComponent";
-const MediaPreviewCard = (props) => {
-  const {
-    id,
-    background,
-    title,
-    date,
-    overview,
-    genres,
-    categoryMovie,
-    point,
-  } = props;
+const MediaPreviewCard = ({
+  id,
+  background,
+  title,
+  date,
+  overview,
+  genres,
+  categoryMovie,
+  point,
+}) => {
   const getCategoryMovie = genres?.map((id) => {
     const category = categoryMovie.find((c) => {
       return c.id === id;

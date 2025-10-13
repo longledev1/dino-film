@@ -1,9 +1,7 @@
 import React from "react";
 import Title from "@components/Title";
 import { currencyFormat } from "@/constant/ultil";
-const MovieInformation = (props) => {
-  const { movieInfo } = props;
-
+const MovieInformation = ({ movieInfo }) => {
   return (
     <div>
       <Title className="text-white">Information</Title>

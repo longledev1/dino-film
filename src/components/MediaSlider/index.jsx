@@ -24,9 +24,8 @@ import useSWR from "swr";
 import { GENRES_URL } from "@constants";
 import { movieFetcher } from "@services/fetcher";
 
-const MediaSlider = (props) => {
+const MediaSlider = ({ title, movieData }) => {
   const [index, setIndex] = useState(0);
-  const { title, movieData } = props;
   const { data } = useSWR(movieData ? [movieData] : null, movieFetcher);
   const { data: category } = useSWR(
     GENRES_URL ? [GENRES_URL] : null,

@@ -1,9 +1,7 @@
 import React from "react";
 import { IMAGE_BASE_URL } from "@constants";
 import ImageComponent from "@components/ImageComponent";
-const ActorInfo = (props) => {
-  const { id, name, image, character } = props;
-
+const ActorInfo = ({ id, name, image, character }) => {
   return (
     <div className="cursor-pointer overflow-hidden rounded-lg border-3 border-gray-900 shadow-sm transition duration-200 hover:border-amber-200">
       <div className="relative">

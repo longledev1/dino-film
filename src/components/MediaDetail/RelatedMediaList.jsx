@@ -13,8 +13,11 @@ import "./RelatedMediaCard.css";
 // import required modules
 import { Grid, Pagination } from "swiper/modules";
 
-const RelatedMediaList = (props) => {
-  const { title, isMovieRelatedListLoading, relatedList } = props;
+const RelatedMediaList = ({
+  title,
+  isMovieRelatedListLoading,
+  relatedList,
+}) => {
   if (isMovieRelatedListLoading) {
     return <p>Loading TV....</p>;
   }
@@ -64,7 +67,7 @@ const RelatedMediaList = (props) => {
                 <RelatedMediaCard
                   id={data.id}
                   title={data.title || data.name}
-                  date={data.release_date}
+                  date={data.release_date || data.first_air_date}
                   point={data.vote_average}
                   poster={data.poster_path}
                   type={data.media_type}

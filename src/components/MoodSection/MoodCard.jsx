@@ -1,5 +1,4 @@
-const MoodCard = (props) => {
-  const { data } = props;
+const MoodCard = ({ data }) => {
   return (
     <a
       href="#"

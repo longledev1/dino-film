@@ -11,8 +11,7 @@ import useSWR from "swr";
 // movieFetcher
 import { movieFetcher } from "../../services/fetcher";
 
-const MovieNew = (props) => {
-  const { title, movieData } = props;
+const MovieNew = ({ title, movieData }) => {
   const { data } = useSWR(movieData ? [movieData] : null, movieFetcher);
   return (
     <div>

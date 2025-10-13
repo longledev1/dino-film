@@ -7,10 +7,18 @@ const ShowMoreButton = ({
   currentData,
   visibleLimit,
 }) => {
+  if (!currentData || currentData == 0) {
+    return null;
+  }
+
   return (
     <div
       onClick={() => setIsShowMore(!isShowMore)}
-      className={`${currentData.length <= visibleLimit ? `hidden` : `group flex w-fit cursor-pointer items-center gap-x-2 rounded-md`} text-white`}
+      className={`${
+        currentData <= visibleLimit
+          ? "hidden"
+          : "group flex w-fit cursor-pointer items-center gap-x-2 rounded-md"
+      } text-white`}
     >
       {isShowMore ? (
         <IoMdArrowDropupCircle className="text-3xl text-amber-200 group-hover:opacity-80" />

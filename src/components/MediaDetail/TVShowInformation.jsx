@@ -1,7 +1,6 @@
 import React from "react";
 import Title from "@components/Title";
-const TVShowInformation = (props) => {
-  const { tvInfo } = props;
+const TVShowInformation = ({ tvInfo }) => {
   return (
     <div>
       <Title className="text-white">Information</Title>

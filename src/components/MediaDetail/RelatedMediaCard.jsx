@@ -4,9 +4,7 @@ import { IMAGE_BASE_URL } from "@/constant";
 import { Link } from "react-router-dom";
 import ImageComponent from "@components/ImageComponent";
 
-const RelatedMediaCard = (props) => {
-  const { id, title, poster, point, type, date } = props;
-
+const RelatedMediaCard = ({ id, title, poster, point, type, date }) => {
   return (
     <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
       <div className="group t flex cursor-pointer flex-col items-center justify-center gap-y-8">
