@@ -42,7 +42,10 @@ const SeasonList = ({ id, seasonNumber, seasons = [] }) => {
                   <div className="h-[300px] w-[200px] flex-shrink-0 overflow-hidden rounded-md">
                     {season.poster_path ? (
                       <ImageComponent
-                        src={`${IMAGE_BASE_URL}/original/${season.poster_path}`}
+                        src={
+                          season.poster_path &&
+                          `${IMAGE_BASE_URL}/original/${season.poster_path}`
+                        }
                         alt={season.name || "Season poster"}
                         width={200}
                         height={300}

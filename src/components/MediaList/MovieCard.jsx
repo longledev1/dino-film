@@ -29,18 +29,10 @@ const MovieCard = ({
           width={170}
           height={255}
           title={"Movie"}
-          src={`${IMAGE_BASE_URL}/w500/${poster}`}
+          src={poster && `${IMAGE_BASE_URL}/w500/${poster}`}
           className="w-full cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50"
         />
-        {/* <img
-          className="w-full cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50"
-          src={`${IMAGE_BASE_URL}/w500/${poster}`}
-          alt="Movie"
-          width={170}
-          height={255}
-        /> */}
 
-        {/* Nội dung */}
         <div className="left-[5 px] relative top-[-4vw] lg:top-[-1.2vw]">
           <CircularProgress
             strokeColor={point >= 7 ? "green" : point >= 5 ? "orange" : "red"}

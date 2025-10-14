@@ -15,7 +15,10 @@ const ImageIndicator = ({ movies, index, onPreviewClick }) => {
             onClick={() => onPreviewClick(i)}
           >
             <ImageComponent
-              src={`${IMAGE_BASE_URL}/w300/${movie.backdrop_path}`}
+              src={
+                movie.backdrop_path &&
+                `${IMAGE_BASE_URL}/w300/${movie.backdrop_path}`
+              }
               alt=""
               width={55}
               height={85}

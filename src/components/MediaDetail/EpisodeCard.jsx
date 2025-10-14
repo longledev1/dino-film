@@ -16,7 +16,7 @@ const EpisodeCard = ({
         <ImageComponent
           width={250}
           height={140}
-          src={`${IMAGE_BASE_URL}/original/${image}`}
+          src={image && `${IMAGE_BASE_URL}/original/${image}`}
           alt=""
           className="object-cover"
         />

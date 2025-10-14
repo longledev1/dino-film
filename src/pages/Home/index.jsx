@@ -25,8 +25,16 @@ function Home() {
             movieData={MEDIA_DATA?.NOW_PLAYING_MOVIES}
             title="Just Released"
           />
-          <MediaSection title={"Hot Right Now"} tabs={TABS_TRENDING} />
-          <MediaSection title={"The Best of the Best"} tabs={TABS_TOP_RATED} />
+          <MediaSection
+            title={"Hot Right Now"}
+            tabs={TABS_TRENDING}
+            storageKey={"hot-right-now-tab"}
+          />
+          <MediaSection
+            title={"The Best of the Best"}
+            tabs={TABS_TOP_RATED}
+            storageKey={"the-best-tab"}
+          />
           <MediaList
             movieData={MEDIA_DATA?.POPULAR_MOVIES}
             title="Just Released"

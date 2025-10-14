@@ -22,7 +22,9 @@ const ImageComponent = ({ width, height, className, src, title }) => {
       alt={title}
       width={width}
       height={height}
-      className={currentSrc === src ? className : `${className} blur-md`}
+      className={
+        currentSrc === src || !src ? className : `${className} blur-md`
+      }
     />
   );
 };

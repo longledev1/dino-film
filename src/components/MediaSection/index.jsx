@@ -2,7 +2,7 @@
 import Title from "../Title";
 import MovieCard from "../MediaList/MovieCard";
 // Hooks
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 // SWR
 import useSWR from "swr";
 // Service
@@ -12,9 +12,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "../../assets/css/media.css";
+// uselocalStorage
+import { useLocalStorage } from "@uidotdev/usehooks";
 
-const MediaSection = ({ title, tabs }) => {
-  const [activeTabID, setActiveTabID] = useState(tabs[0].id);
+const MediaSection = ({ title, tabs, storageKey }) => {
+  const [activeTabID, setActiveTabID] = useLocalStorage(storageKey, tabs[0].id);
 
   const url = useMemo(() => {
     return tabs.find((tab) => tab.id === activeTabID)?.url || null;
@@ -24,13 +26,12 @@ const MediaSection = ({ title, tabs }) => {
     keepPreviousData: true,
   });
 
-  // Tránh re-render khi bấm lại tab đã active
   const handleChangeTab = useCallback(
     (id) => {
       if (id === activeTabID) return;
       setActiveTabID(id);
     },
-    [activeTabID],
+    [activeTabID, setActiveTabID],
   );
 
   return (
@@ -119,6 +120,7 @@ const MediaSection = ({ title, tabs }) => {
                   date={movie?.release_date || movie?.first_air_date}
                   point={movie?.vote_average}
                   poster={movie?.poster_path}
+                  setActiveTabID={setActiveTabID}
                 />
               </SwiperSlide>
             ))}

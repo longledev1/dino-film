@@ -95,4 +95,6 @@ export const DETAILS_DATA = {
   RECOMMENDATIONS_TV: (id) => `/tv/${id}/recommendations`,
   SEASONS_TV: (id, number) =>
     `/tv/${id}/season/${number}?append_to_response=content_ratings,credits,videos`,
+  PERSON: (person_id) =>
+    `/person/${person_id}?append_to_response=combined_credits`,
 };

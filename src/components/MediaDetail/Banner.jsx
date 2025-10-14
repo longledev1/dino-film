@@ -23,9 +23,6 @@ const Banner = ({
   contentRating,
   trailerKey,
 }) => {
-  // for movie
-  // const cert = certification ? certification : "G";
-  // for season (tv-show)
   const { setContent, setIsModalShowing } = useModalContext();
 
   const seasonName = name ? `(${name})` : "";
@@ -50,7 +47,7 @@ const Banner = ({
         <div className="container">
           <div className="l flex flex-col items-center gap-x-12 text-[14px] sm:text-base lg:flex-row lg:items-start">
             <ImageComponent
-              src={`${IMAGE_BASE_URL}/original/${poster}`}
+              src={poster && `${IMAGE_BASE_URL}/original/${poster}`}
               alt=""
               className="rounded-md object-cover transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer"
               width={200}

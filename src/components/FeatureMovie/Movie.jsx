@@ -3,6 +3,7 @@ import { useModalContext } from "@/context/ModalProvider";
 import { FaPlayCircle } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa";
 import TrailerVideo from "@components/TrailerVideo";
+import { Link } from "react-router-dom";
 const Movie = ({ data, categoryMovie, trailerKey }) => {
   const getCategoryMovie = data?.genre_ids.map((id) => {
     const category = categoryMovie.find((c) => c.id === id);
@@ -29,9 +30,11 @@ const Movie = ({ data, categoryMovie, trailerKey }) => {
       {/* Nội dung Hero */}
       <div className="relative z-10 container flex h-full flex-col items-start justify-end text-[14px] text-white sm:text-base">
         <div className="mb-10">
-          <h2 className="mb-2 w-full text-4xl font-bold md:text-6xl lg:w-[800px]">
-            {data?.title}
-          </h2>
+          <Link to={`/movie/${data?.id}`}>
+            <h2 className="mb-2 w-full text-4xl font-bold hover:opacity-75 md:text-6xl lg:w-[800px]">
+              {data?.title}
+            </h2>
+          </Link>
 
           <p className="text-sub mb-2">{data?.release_date}</p>
           <div className="mb-4 flex items-center gap-x-2">
@@ -51,7 +54,7 @@ const Movie = ({ data, categoryMovie, trailerKey }) => {
           <p className="mb-6 max-w-xl">{data?.overview}</p>
           <div className="flex space-x-4">
             <button
-              className="bg-button flex cursor-pointer items-center gap-x-2 rounded-lg px-6 py-3 font-semibold hover:bg-green-700"
+              className="bg-button flex cursor-pointer items-center gap-x-2 rounded-lg px-6 py-3 font-semibold hover:brightness-75"
               onClick={handleOpenTrailer}
             >
               <FaPlayCircle className="text-xl"></FaPlayCircle>

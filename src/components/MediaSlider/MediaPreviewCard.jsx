@@ -76,7 +76,7 @@ const MediaPreviewCard = ({
         {/* Ảnh bên phải */}
         <div className="relative w-full lg:w-2/3">
           <ImageComponent
-            src={`${IMAGE_BASE_URL}/original${background}`}
+            src={background && `${IMAGE_BASE_URL}/original${background}`}
             className="h-full !w-[100%] object-cover"
             alt="Fire Force"
             width={912}

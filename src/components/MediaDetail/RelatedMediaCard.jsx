@@ -7,13 +7,13 @@ import ImageComponent from "@components/ImageComponent";
 const RelatedMediaCard = ({ id, title, poster, point, type, date }) => {
   return (
     <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
-      <div className="group t flex cursor-pointer flex-col items-center justify-center gap-y-8">
+      <div className="group flex cursor-pointer flex-col items-center justify-center gap-y-8">
         <div className="relative group-hover:opacity-75">
           <ImageComponent
-            src={`${IMAGE_BASE_URL}/original/${poster}`}
+            src={poster && `${IMAGE_BASE_URL}/original/${poster}`}
             alt=""
             className="rounded-lg object-cover"
-            width={203}
+            width={207}
             height={304}
           />
           <div className="absolute left-5 -translate-y-[50%] transform">
