@@ -18,6 +18,7 @@ const ImageComponent = ({ width, height, className, src, title }) => {
 
   return (
     <img
+      loading="lazy"
       src={currentSrc}
       alt={title}
       width={width}

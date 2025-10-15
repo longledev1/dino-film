@@ -1,10 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy } from "react";
 import MainLayout from "../layouts/MainLayout";
 import Home from "@pages/Home";
-import MovieDetails from "@pages/MovieDetail";
-import TVShowDetail from "@/pages/TVShowDetail";
-import SeasonDetail from "@/pages/SeasonDetail";
-import PeopleDetail from "@/pages/People";
+const MovieDetails = lazy(() => import("@pages/MovieDetail"));
+const TVShowDetail = lazy(() => import("@pages/TVShowDetail"));
+const SeasonDetail = lazy(() => import("@pages/SeasonDetail"));
+const PeopleDetail = lazy(() => import("@/pages/People"));
+const SearchPage = lazy(() => import("@/pages/Search"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/people/:id",
         element: <PeopleDetail />,
+      },
+      {
+        path: "/search",
+        element: <SearchPage />,
       },
     ],
   },

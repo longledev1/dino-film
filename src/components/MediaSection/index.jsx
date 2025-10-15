@@ -121,6 +121,7 @@ const MediaSection = ({ title, tabs, storageKey }) => {
                   point={movie?.vote_average}
                   poster={movie?.poster_path}
                   setActiveTabID={setActiveTabID}
+                  isMediaSection={true}
                 />
               </SwiperSlide>
             ))}

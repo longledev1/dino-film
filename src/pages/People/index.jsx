@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 // USE SWR
 import useSWR from "swr";
-// Component
-import RelatedMediaCard from "@/components/MediaDetail/RelatedMediaCard";
 // Constant
 import { DETAILS_DATA, IMAGE_BASE_URL } from "@/constant";
 import { movieFetcher } from "@/services/fetcher";
 // Router
 import { useParams } from "react-router-dom";
-import CircularProgress from "@/components/MediaList/CircularProgress";
 import PeopleCastCard from "@/components/People/PeopleCastCard";
+import Loading from "@/components/Loading";
 const PeopleDetail = () => {
   const { id } = useParams();
   const PEOPLE_DETAIL_ENDPOINT = DETAILS_DATA?.PERSON(id);
@@ -21,8 +19,24 @@ const PeopleDetail = () => {
     3: "Non-binary",
   };
 
-  const { data } = useSWR(id ? [PEOPLE_DETAIL_ENDPOINT] : null, movieFetcher);
-  console.log(data);
+  const { data, isLoading: isDataLoading } = useSWR(
+    id ? [PEOPLE_DETAIL_ENDPOINT] : null,
+    movieFetcher,
+  );
+
+  const peopleCastMovies = data?.combined_credits?.cast
+    .filter((data) => data.vote_average !== 0)
+    .map((movie) => {
+      return movie;
+    });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (isDataLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div className="relative min-h-screen pt-[108px] text-white">
@@ -84,8 +98,8 @@ const PeopleDetail = () => {
                 Known For{" "}
               </p>
               <div className="mt-4 grid grid-cols-5 gap-4">
-                {data?.combined_credits?.cast &&
-                  data?.combined_credits?.cast.map((movie, index) => (
+                {peopleCastMovies &&
+                  peopleCastMovies.map((movie, index) => (
                     <PeopleCastCard
                       key={`${movie.id}-${index}`}
                       id={movie.id}

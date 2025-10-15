@@ -1,0 +1,37 @@
+@keyframes foldCubeAngle {
+  0%,
+  10% {
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%,
+  75% {
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%,
+  100% {
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+.cube-face {
+  animation: foldCubeAngle 2.4s infinite linear both;
+}
+
+.cube-face-1 {
+  animation-delay: 0s;
+}
+
+.cube-face-2 {
+  animation-delay: 0.3s;
+}
+
+.cube-face-3 {
+  animation-delay: 0.6s;
+}
+
+.cube-face-4 {
+  animation-delay: 0.9s;
+}

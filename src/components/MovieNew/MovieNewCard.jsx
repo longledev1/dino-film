@@ -9,10 +9,10 @@ const MovieNewCard = ({ type, id, poster, title, date, index }) => {
     <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
       <div className="shadow-4xl group">
         <div
-          className={`relative transform cursor-pointer overflow-hidden rounded-md shadow-2xl ${skewClass}`}
+          className={`relative h-[397px] w-[256px] transform cursor-pointer overflow-hidden rounded-md shadow-2xl ${skewClass}`}
         >
           <ImageComponent
-            src={poster && `${IMAGE_BASE_URL}/w500${poster}`}
+            src={poster && `${IMAGE_BASE_URL}/original${poster}`}
             alt={title}
             className="w-full rounded-md object-cover transition-transform duration-500 group-hover:scale-105"
             width={256}

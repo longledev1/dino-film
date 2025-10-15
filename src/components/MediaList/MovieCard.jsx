@@ -14,6 +14,7 @@ const MovieCard = ({
   type,
   className,
   onDesktop,
+  isMediaSection,
 }) => {
   return (
     <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
@@ -29,8 +30,8 @@ const MovieCard = ({
           width={170}
           height={255}
           title={"Movie"}
-          src={poster && `${IMAGE_BASE_URL}/w500/${poster}`}
-          className="w-full cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50"
+          src={poster && `${IMAGE_BASE_URL}/original/${poster}`}
+          className={`${isMediaSection ? `!h-[404px] w-full cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50` : `h-full`}`}
         />
 
         <div className="left-[5 px] relative top-[-4vw] lg:top-[-1.2vw]">
