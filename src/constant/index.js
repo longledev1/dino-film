@@ -73,6 +73,24 @@ export const TABS_TOP_RATED = [
   },
 ];
 
+export const POPULAR_REGIONS = [
+  "US", // United States
+  "GB", // United Kingdom
+  "CA", // Canada
+  "AU", // Australia
+  "FR", // France
+  "DE", // Germany
+  "IT", // Italy
+  "ES", // Spain
+  "JP", // Japan
+  "KR", // South Korea
+  "CN", // China
+  "IN", // India
+  "TH", // Thailand
+  "ID", // Indonesia
+  "MX", // Mexico
+];
+
 // base url genres
 export const GENRES_URL = "/genre/movie/list";
 
@@ -86,6 +104,7 @@ export const MEDIA_DATA = {
   DISNEY_MOVIES: "/discover/movie?with_companies=2",
   ANIME_MOVIES:
     "/discover/movie?with_genres=16&with_original_language=ja&sort_by=popularity.desc",
+  REGION: "/watch/providers/regions",
 };
 
 export const DETAILS_DATA = {
@@ -97,4 +116,25 @@ export const DETAILS_DATA = {
     `/tv/${id}/season/${number}?append_to_response=content_ratings,credits,videos`,
   PERSON: (person_id) =>
     `/person/${person_id}?append_to_response=combined_credits`,
+};
+
+export const SEARCH_QUERY = {
+  DISCOVER: (
+    type = "movie",
+    genres = [],
+    country = "",
+    minRating = 0,
+    maxRating = 100,
+    page = 1,
+  ) => {
+    const params = new URLSearchParams();
+
+    if (genres.length) params.set("with_genres", genres.join(","));
+    if (country) params.set("with_origin_country", country);
+    params.set("vote_average.gte", (minRating / 10).toString());
+    params.set("vote_average.lte", (maxRating / 10).toString());
+    params.set("page", page.toString());
+
+    return `/discover/${type}?${params.toString()}`;
+  },
 };

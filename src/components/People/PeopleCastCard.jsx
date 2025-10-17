@@ -5,7 +5,7 @@ import { IMAGE_BASE_URL } from "@/constant";
 import CircularProgress from "../MediaList/CircularProgress";
 const PeopleCastCard = ({ id, title, poster, point, type, date }) => {
   return (
-    <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
+    <Link to={type == "tv" ? `/tv/${id}` : `/movie/${id}`}>
       <div className="flex flex-col gap-y-6">
         <div className="relative">
           <ImageComponent

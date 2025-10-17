@@ -1,112 +1,97 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import FormField from "./FormField";
-import MediaTypeInput from "./FormInputs/MediaTypeInput";
+import {
+  MediaTypeInput,
+  GenresInput,
+  RatingInput,
+  CountriesInput,
+} from "./FormInputs";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
-const SearchForm = () => {
-  const { handleSubmit, control } = useForm();
+const SearchForm = ({
+  searchFormValue,
+  setSearchFormValue,
+  setIsShowFilter,
+}) => {
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: searchFormValue,
+  });
+
+  useEffect(() => {
+    reset(searchFormValue);
+  }, [searchFormValue, reset]);
+
   const onSubmit = (data) => {
-    console.log(data);
+    setSearchFormValue(data);
+    window.scrollTo({
+      top: 300, // hoặc số pixel bạn muốn cuộn xuống
+      behavior: "smooth", // cuộn mượt
+    });
+    console.log({ formData: data });
   };
+
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     if (JSON.stringify(formValues) !== JSON.stringify(searchFormValue)) {
+  //       setSearchFormValue(formValues);
+  //     }
+  //   }, 300);
+  //   return () => clearTimeout(timeout);
+  // }, [formValues]);
+
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      {/* <div className="flex flex-col gap-2">
-        <label className="font-bold text-amber-200" htmlFor="">
-          Media Type
-        </label>
-        <div className="flex items-center gap-x-2">
-          <input
-            className="h-3 w-3 cursor-pointer appearance-none rounded-full border-2 border-white checked:border-amber-200 checked:bg-amber-200"
-            id="inp-movie"
-            type="radio"
-            value="movie"
-            {...register("mediaType")}
-          />
-          <label htmlFor="inp-movie" className="font-thin">
-            Movie
-          </label>
-        </div>
-        <div className="flex items-center gap-x-2">
-          <input
-            className="h-3 w-3 cursor-pointer appearance-none rounded-full border-2 border-white checked:border-amber-200 checked:bg-amber-200"
-            id="inp-tv"
-            type="radio"
-            value="tv"
-            {...register("mediaType")}
-          />
-          <label htmlFor="inp-tv" className="font-thin">
-            TV Show
-          </label>
-        </div>
-      </div> */}
       <FormField
         name="mediaType"
         control={control}
-        label="Media Type"
+        label="Media Type "
+        isCenter={true}
         Component={MediaTypeInput}
       />
-      <div className="flex flex-col gap-2">
-        <label htmlFor="" className="font-bold text-amber-200">
-          Genres
-        </label>
-        <div className="flex flex-wrap gap-2">
-          <button className="ư rounded-md border-2 border-amber-200 bg-gray-600 p-1 text-[14px]">
-            Action & Romatic
+      <hr className="border-t border-dashed border-gray-700" />
+      <FormField
+        name="genres"
+        control={control}
+        label="Genres"
+        Component={GenresInput}
+      />
+      <hr className="border-t border-dashed border-gray-700" />
+      <FormField
+        name="country"
+        control={control}
+        label="Countries"
+        Component={CountriesInput}
+      />
+      <hr className="border-t border-dashed border-gray-700" />
+      <FormField
+        name="rating"
+        control={control}
+        label="Rating"
+        isCenter={true}
+        Component={RatingInput}
+      />
+      <hr className="border-t border-dashed border-gray-700" />
+
+      <div className="mb-4 ml-3">
+        <div className="flex items-center gap-x-4">
+          <button
+            type="submit"
+            className="ml-[20px] flex h-[40px] w-[160px] cursor-pointer items-center justify-center gap-x-2 rounded-full bg-amber-200 font-bold text-black hover:opacity-75"
+          >
+            Filter
+            <FaLongArrowAltRight />
           </button>
-          <button className="rounded-md bg-[#0f1827] p-1 text-[14px]">
-            Cartoon
-          </button>
-          <button className="rounded-md bg-[#0f1827] p-1 text-[14px]">
-            Cartoon
-          </button>
-          <button className="rounded-md bg-[#0f1827] p-1 text-[14px]">
-            Cartoon
-          </button>
-          <button className="rounded-md bg-[#0f1827] p-1 text-[14px]">
-            Cartoon
-          </button>
-          <button className="rounded-md bg-[#0f1827] p-1 text-[14px]">
-            Cartoon
-          </button>
-          <button className="rounded-md bg-[#0f1827] p-1 text-[14px]">
-            Cartoon
-          </button>
-          <button className="rounded-md bg-[#0f1827] p-1 text-[14px]">
-            Cartoon
-          </button>
-          <button className="rounded-md bg-[#0f1827] p-1 text-[14px]">
-            Cartoon
+
+          <button
+            type="button"
+            className="flex h-[40px] w-[100px] cursor-pointer items-center justify-center rounded-full border-2 border-white bg-white p-2 font-bold text-black hover:opacity-75"
+            onClick={() => setIsShowFilter(false)}
+          >
+            Close
           </button>
         </div>
       </div>
-      <div className="flex w-fit flex-col gap-2">
-        <label htmlFor="" className="font-bold text-amber-200">
-          Rating
-        </label>
-        <select
-          name=""
-          id=""
-          className="rounded-md border-2 border-gray-200 p-1"
-        >
-          <option value="">All</option>
-          <option className="text-black" value=">0-49">
-            0-49
-          </option>
-          <option className="text-black" value="50-69">
-            50-69
-          </option>
-          <option className="text-black" value="70-100">
-            70-100
-          </option>
-        </select>
-      </div>
-
-      <button
-        className="cursor-pointer rounded-md bg-amber-200 p-2 font-bold text-black outline-none hover:opacity-75"
-        type="submit"
-      >
-        Filter
-      </button>
     </form>
   );
 };
