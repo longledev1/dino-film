@@ -1,6 +1,6 @@
 const PaginateIndicator = ({ movies, index, setIndex, setActiveID }) => {
   return (
-    <div className="absolute right-7 bottom-[2%] z-50 lg:bottom-[5%]">
+    <div className="absolute right-7 bottom-[2%] z-20 lg:bottom-[5%]">
       <ul className="flex gap-x-1">
         {movies.map((movie, i) => (
           <li

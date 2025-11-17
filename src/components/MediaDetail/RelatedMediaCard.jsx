@@ -8,11 +8,11 @@ const RelatedMediaCard = ({ id, title, poster, point, type, date }) => {
   return (
     <Link to={type === "tv" ? `/tv/${id}` : `/movie/${id}`}>
       <div className="group flex cursor-pointer flex-col items-center justify-center gap-y-8">
-        <div className="relative group-hover:opacity-75">
+        <div className="relative !h-[304px] group-hover:opacity-75">
           <ImageComponent
             src={poster && `${IMAGE_BASE_URL}/original/${poster}`}
             alt=""
-            className="rounded-lg object-cover"
+            className="h-full w-full rounded-lg object-cover"
             width={207}
             height={304}
           />

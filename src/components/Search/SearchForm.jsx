@@ -8,15 +8,18 @@ import {
   CountriesInput,
 } from "./FormInputs";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 const SearchForm = ({
   searchFormValue,
   setSearchFormValue,
   setIsShowFilter,
+  setCurrentPage,
 }) => {
   const { handleSubmit, control, reset } = useForm({
     defaultValues: searchFormValue,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     reset(searchFormValue);
@@ -25,10 +28,11 @@ const SearchForm = ({
   const onSubmit = (data) => {
     setSearchFormValue(data);
     window.scrollTo({
-      top: 300, // hoặc số pixel bạn muốn cuộn xuống
-      behavior: "smooth", // cuộn mượt
+      top: 300,
+      behavior: "smooth",
     });
-    console.log({ formData: data });
+    setCurrentPage(1);
+    navigate(`/search?mediaType=${data.mediaType}`);
   };
 
   // useEffect(() => {
@@ -45,7 +49,7 @@ const SearchForm = ({
       <FormField
         name="mediaType"
         control={control}
-        label="Media Type "
+        label="Media Type"
         isCenter={true}
         Component={MediaTypeInput}
       />

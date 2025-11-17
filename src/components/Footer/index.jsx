@@ -10,7 +10,7 @@ import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="bg-gray-800 px-6 py-6 text-white">
+    <div className="mt-[100px] bg-gray-800 px-6 py-6 text-white">
       {/* Footer Slogan */}
       <div className="flex justify-center lg:justify-start">
         <div className="bg-button mb-6 flex w-fit items-center gap-x-2 rounded-full p-2 text-[14px]">

@@ -6,7 +6,7 @@ import useSWR from "swr";
 const GenresInput = ({ control, onChange, value = [] }) => {
   const mediaType = useWatch({ name: "mediaType", control });
   const { data } = useSWR(
-    mediaType ? [`/genre/${mediaType}/list`] : null,
+    mediaType ? [`/genre/${mediaType}/list`] : [`/genre/movie/list`],
     movieFetcher,
     { keepPreviousData: true },
   );

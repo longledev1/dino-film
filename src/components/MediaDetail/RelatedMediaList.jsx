@@ -25,57 +25,61 @@ const RelatedMediaList = ({
   return (
     <div>
       <Title className="text-white">{title}</Title>
-      <div className="mt-4">
-        <Swiper
-          slidesPerView={6}
-          grid={{ rows: 2, fill: "row" }}
-          spaceBetween={10}
-          pagination={{ clickable: true }}
-          modules={[Grid, Pagination]}
-          className="related-swiper"
-          breakpoints={{
-            320: {
-              // mobile nhỏ
-              slidesPerView: 3,
-              spaceBetween: 10,
-            },
-            640: {
-              // mobile lớn
-              slidesPerView: 3,
-              spaceBetween: 15,
-            },
-            768: {
-              // tablet
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-            1024: {
-              // desktop nhỏ
-              slidesPerView: 4,
-              spaceBetween: 25,
-            },
-            1280: {
-              // desktop lớn
-              slidesPerView: 6,
-              spaceBetween: 30,
-            },
-          }}
-        >
-          {relatedList &&
-            relatedList.map((data) => (
-              <SwiperSlide key={data.id}>
-                <RelatedMediaCard
-                  id={data.id}
-                  title={data.title || data.name}
-                  date={data.release_date || data.first_air_date}
-                  point={data.vote_average}
-                  poster={data.poster_path}
-                  type={data.media_type}
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>
+      {relatedList.length > 0 ? (
+        <div className="mt-4">
+          <Swiper
+            slidesPerView={6}
+            grid={{ rows: 2, fill: "row" }}
+            spaceBetween={10}
+            pagination={{ clickable: true }}
+            modules={[Grid, Pagination]}
+            className="related-swiper"
+            breakpoints={{
+              320: {
+                // mobile nhỏ
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+              640: {
+                // mobile lớn
+                slidesPerView: 3,
+                spaceBetween: 15,
+              },
+              768: {
+                // tablet
+                slidesPerView: 4,
+                spaceBetween: 20,
+              },
+              1024: {
+                // desktop nhỏ
+                slidesPerView: 4,
+                spaceBetween: 25,
+              },
+              1280: {
+                // desktop lớn
+                slidesPerView: 6,
+                spaceBetween: 30,
+              },
+            }}
+          >
+            {relatedList &&
+              relatedList.map((data) => (
+                <SwiperSlide key={data.id}>
+                  <RelatedMediaCard
+                    id={data.id}
+                    title={data.title || data.name}
+                    date={data.release_date || data.first_air_date}
+                    point={data.vote_average}
+                    poster={data.poster_path}
+                    type={data.media_type}
+                  />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
+      ) : (
+        <p className="mt-4 text-white">Updating...</p>
+      )}
     </div>
   );
 };

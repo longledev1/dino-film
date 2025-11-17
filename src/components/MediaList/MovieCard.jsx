@@ -31,7 +31,7 @@ const MovieCard = ({
           height={255}
           title={"Movie"}
           src={poster && `${IMAGE_BASE_URL}/original/${poster}`}
-          className={`${isMediaSection ? `!h-[404px] w-full cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50` : `h-full`}`}
+          className={`${isMediaSection ? `!h-[404px] w-full cursor-pointer rounded-md rounded-br-none rounded-bl-none object-cover hover:opacity-50` : `h-full hover:opacity-50`}`}
         />
 
         <div className="left-[5 px] relative top-[-4vw] lg:top-[-1.2vw]">

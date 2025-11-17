@@ -2,10 +2,11 @@ import React from "react";
 import { IMAGE_BASE_URL } from "@constants";
 import ImageComponent from "@components/ImageComponent";
 import { Link } from "react-router-dom";
+
 const ActorInfo = ({ id, name, image, character }) => {
   return (
     <Link to={`/people/${id}`}>
-      <div className="cursor-pointer overflow-hidden rounded-lg border-3 border-gray-900 shadow-sm transition duration-200 hover:border-amber-200">
+      <div className="h-full cursor-pointer overflow-hidden rounded-lg border-3 border-gray-900 shadow-sm transition duration-200 hover:border-amber-200 md:h-[350px]">
         <div className="relative">
           <ImageComponent
             src={image && `${IMAGE_BASE_URL}/w276_and_h350_face${image}`}

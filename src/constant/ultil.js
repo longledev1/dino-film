@@ -16,3 +16,8 @@ export const formatRuntime = (runtime) => {
   if (minutes === 0) return `${hours}h`;
   return `${hours}h ${minutes}m`;
 };
+
+export function capitalize(str) {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}

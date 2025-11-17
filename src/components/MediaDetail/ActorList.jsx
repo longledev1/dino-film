@@ -25,7 +25,7 @@ const ActorList = ({ title, actors }) => {
       <ShowMoreButton
         setIsShowMore={setIsShowMore}
         isShowMore={isShowMore}
-        currentData={actors.length}
+        currentData={actors?.length}
         visibleLimit={4}
       ></ShowMoreButton>
     </div>

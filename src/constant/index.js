@@ -4,38 +4,38 @@ export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 // TOPIC
 export const TOPIC = [
   {
-    id: 1,
+    id: "marvel",
     label: "Marvel",
     color: "#536bd6",
   },
 
   {
-    id: 2,
-    label: "4K",
+    id: "anime",
+    label: "Anime",
     color: "#807fa9",
   },
   {
-    id: 3,
+    id: "sitcom",
     label: "Sitcom",
     color: "#419885",
   },
   {
-    id: 4,
+    id: "time-travel",
     label: "Time-Travel",
     color: "#d59379",
   },
   {
-    id: 5,
+    id: "historical",
     label: "Historical",
     color: "#b45a57",
   },
   {
-    id: 6,
+    id: "political-drama",
     label: "Political Drama",
     color: "#e8b13e",
   },
   {
-    id: 7,
+    id: "action",
     label: "Action",
     color: "#041e41",
   },
@@ -137,4 +137,48 @@ export const SEARCH_QUERY = {
 
     return `/discover/${type}?${params.toString()}`;
   },
+
+  MULTI: (query = "", page = 1) => {
+    return {
+      endpoint: "/search/multi",
+      params: {
+        query: query.trim(),
+        language: "en-US",
+        page,
+      },
+    };
+  },
+
+  MULTI_STRING: (query = "", page = 1) => {
+    const params = new URLSearchParams({
+      query: query.trim(),
+      language: "en-US",
+      page,
+    });
+
+    return `/search/multi?${params.toString()}`;
+  },
+};
+
+export const MOOD_MEDIA_DATA = {
+  marvel: (page = 1) =>
+    `/discover/movie?with_companies=420&sort_by=popularity.desc&page=${page}`,
+
+  anime: (page = 1) =>
+    `/discover/movie?with_genres=16&with_keywords=210024&sort_by=popularity.desc&page=${page}`,
+
+  sitcom: (page = 1) =>
+    `/discover/tv?with_genres=35&with_keywords=9719&sort_by=popularity.desc&page=${page}`,
+
+  time_travel: (page = 1) =>
+    `/discover/movie?with_keywords=4379&sort_by=popularity.desc&page=${page}`,
+
+  historical: (page = 1) =>
+    `/discover/movie?with_genres=36&sort_by=vote_count.desc&page=${page}`,
+
+  political_drama: (page = 1) =>
+    `/discover/movie?with_keywords=9663,606&sort_by=popularity.desc&page=${page}`,
+
+  action: (page = 1) =>
+    `/discover/movie?with_genres=28&sort_by=popularity.desc&page=${page}`,
 };

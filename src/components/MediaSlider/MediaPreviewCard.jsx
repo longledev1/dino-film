@@ -63,10 +63,11 @@ const MediaPreviewCard = ({
             </p>
           </div>
           <div className="flex space-x-4">
-            <button className="bg-button flex w-full cursor-pointer items-center gap-x-2 rounded-lg px-6 py-3 text-[14px] font-semibold opacity-100 hover:opacity-100 lg:opacity-70">
-              <FaPlayCircle className="text-xl"></FaPlayCircle>
-              <span>Watch Trailer</span>
-            </button>
+            <Link className="w-full" to={`/movie/${id}`}>
+              <button className="bg-button w-full cursor-pointer items-center gap-x-2 rounded-lg px-6 py-3 text-[14px] font-semibold opacity-100 hover:opacity-70">
+                View Details
+              </button>
+            </Link>
             <button className="flex w-full cursor-pointer items-center gap-x-2 rounded-lg bg-slate-300/35 px-6 py-3 text-[14px] font-semibold hover:bg-white hover:text-black">
               <FaRegBookmark className="text-xl"></FaRegBookmark>
               <span>Add to Watchlist</span>

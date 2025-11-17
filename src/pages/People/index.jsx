@@ -97,7 +97,7 @@ const PeopleDetail = () => {
               <p className="text-xl font-bold text-amber-200 sm:text-2xl">
                 Known For{" "}
               </p>
-              <div className="mt-4 grid grid-cols-5 gap-4">
+              <div className="mt-4 grid grid-cols-3 gap-4 sm:grid-cols-5">
                 {peopleCastMovies &&
                   peopleCastMovies.map((movie, index) => (
                     <PeopleCastCard

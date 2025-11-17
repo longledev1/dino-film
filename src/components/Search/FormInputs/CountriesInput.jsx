@@ -29,9 +29,7 @@ const CountriesInput = ({ control, onChange }) => {
               className={`cursor-pointer rounded-md border-2 bg-[#0f1827] p-1 text-[14px] capitalize outline-none hover:opacity-75 ${
                 isSelected ? "border-amber-200 bg-gray-600" : "border-gray-700"
               }`}
-              onClick={
-                () => onChange(isSelected ? "" : c.iso_3166_1) // 👈 toggle chọn/bỏ chọn
-              }
+              onClick={() => onChange(isSelected ? "" : c.iso_3166_1)}
             >
               {c.native_name}
             </button>
