@@ -1,5 +1,5 @@
 import { movieFetcher } from "@/services/fetcher";
-import React, { useEffect } from "react";
+import React from "react";
 import { useWatch } from "react-hook-form";
 import useSWR from "swr";
 import { MEDIA_DATA, POPULAR_REGIONS } from "@/constant";
@@ -27,7 +27,7 @@ const CountriesInput = ({ control, onChange }) => {
               key={c.iso_3166_1}
               type="button"
               className={`cursor-pointer rounded-md border-2 bg-[#0f1827] p-1 text-[14px] capitalize outline-none hover:opacity-75 ${
-                isSelected ? "border-amber-200 bg-gray-600" : "border-gray-700"
+                isSelected ? "border-secondary bg-gray-600" : "border-gray-700"
               }`}
               onClick={() => onChange(isSelected ? "" : c.iso_3166_1)}
             >

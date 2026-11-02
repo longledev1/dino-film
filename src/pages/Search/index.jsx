@@ -1,102 +1,57 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 // Component
 import Title from "@/components/Title";
 import SearchForm from "@/components/Search/SearchForm";
-import MediaCard from "@/components/People/PeopleCastCard";
+import MovieCard from "@/components/MediaList/MovieCard";
+import { MovieCardSkeleton } from "@/components/Loading/MovieCardSkeleton";
 // useSWR
 import useSWR from "swr";
 // Constant & Config
 import { movieFetcher } from "@/services/fetcher";
 import { SEARCH_QUERY } from "@/constant";
-// Libary
-import { useLocalStorage } from "@uidotdev/usehooks";
 // Icons
 import { FaFilter } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 // React-router-dom
-import { useSearchParams, useLocation } from "react-router";
-import Loading from "@/components/Loading";
+import { useSearchParams, useLocation } from "react-router-dom";
 
 const SearchPage = () => {
-  const [currentPage, setCurrentPage] = useLocalStorage("page", 1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isShowFilter, setIsShowFilter] = useState(false);
   const [searchParams] = useSearchParams();
-  const mediaType = searchParams.get("mediaType");
+  const mediaTypeParam = searchParams.get("mediaType");
 
   const location = useLocation();
-  const { pathname, search } = location;
-  const fullPath = pathname.replace("/", "") + search;
-  const prevFullPath = useRef(fullPath);
 
   // keywords from state (search by name)
   const keywords = location.state?.nameMedia || "";
-  const searchingByName = keywords && keywords.trim() !== "";
+  const searchingByName = Boolean(keywords && keywords.trim() !== "");
 
   // Default form values (advanced filter)
-  const DEFAULT_FORM_VALUE = {
-    mediaType: ["movie", "tv"].includes(mediaType) ? mediaType : "movie",
+  const [searchFormValue, setSearchFormValue] = useState({
+    mediaType: ["movie", "tv"].includes(mediaTypeParam)
+      ? mediaTypeParam
+      : "movie",
     country: "",
     genres: [],
     rating: "all",
-  };
+  });
 
-  const [searchFormValue, setSearchFormValue] = useLocalStorage(
-    "search-form",
-    DEFAULT_FORM_VALUE,
-  );
-
-  const isFirstRender = useRef(true);
-
+  // Khi param mediaType thay đổi trên URL (ví dụ click menu Movies hoặc TV Show trên header)
   useEffect(() => {
-    // Bỏ qua lần render đầu tiên (mount)
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      prevFullPath.current = fullPath; // lưu fullPath lúc mount
-      return;
-    }
-
-    // Nếu fullPath khác fullPath trước → reset page
-    if (prevFullPath.current !== fullPath) {
+    if (["movie", "tv"].includes(mediaTypeParam)) {
+      setSearchFormValue((prev) => ({
+        ...prev,
+        mediaType: mediaTypeParam,
+      }));
       setCurrentPage(1);
     }
+  }, [mediaTypeParam]);
 
-    // Cập nhật fullPath cũ
-    prevFullPath.current = fullPath;
-  }, [fullPath]);
-
-  // rest page when keywords
-  const prevKeywords = useRef(keywords);
-
+  // Reset page khi keywords thay đổi
   useEffect(() => {
-    if (isFirstRender.current) return;
-
-    if (keywords !== prevKeywords.current) {
-      setCurrentPage(1);
-    }
-
-    prevKeywords.current = keywords;
+    setCurrentPage(1);
   }, [keywords]);
-
-  const prevMediaType = useRef(searchFormValue.mediaType);
-
-  useEffect(() => {
-    if (isFirstRender.current) return;
-
-    if (
-      ["movie", "tv"].includes(mediaType) &&
-      mediaType !== prevMediaType.current
-    ) {
-      setSearchFormValue({
-        mediaType,
-        country: "",
-        genres: [],
-        rating: "all",
-      });
-      setCurrentPage(1);
-    }
-
-    prevMediaType.current = mediaType;
-  }, [mediaType, searchFormValue.mediaType, setSearchFormValue]);
 
   const [minRating, maxRating] =
     searchFormValue?.rating === "all"
@@ -121,8 +76,6 @@ const SearchPage = () => {
 
   const endpoint = searchingByName ? SEARCH_BY_NAME_ENDPOINT : SEARCH_ENDPOINT;
 
-  // get data
-  // only fetch when endpoint is valid
   const { data: finalData, isLoading } = useSWR(
     endpoint ? [endpoint] : null,
     movieFetcher,
@@ -134,34 +87,41 @@ const SearchPage = () => {
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected + 1);
-    window.scrollTo({ top: 230, behavior: "smooth" });
+    window.scrollTo({ top: 120, behavior: "smooth" });
   };
 
   return (
-    <div className="relative min-h-screen pt-[108px] text-white">
-      {keywords && (
-        <div className="ml-7 flex items-center gap-x-2 text-xl font-bold">
-          <p>Search results for:</p>
-          <p className="text-amber-200">{keywords}</p>
-        </div>
-      )}
-      <div className="px-[20px] py-[25px]">
-        <div
-          className={`relative rounded ${isShowFilter ? "border-1 border-gray-700" : ""} `}
-        >
+    <div className="relative min-h-screen pt-[110px] pb-16 text-white">
+      <div className="container">
+        {keywords ? (
+          <div className="mb-6 flex flex-wrap items-baseline gap-2 border-b border-white/10 pb-4">
+            <span className="text-xl sm:text-2xl text-gray-400">
+              Results for:
+            </span>
+            <span className="text-2xl sm:text-3xl font-bold text-secondary">
+              "{keywords}"
+            </span>
+          </div>
+        ) : (
+          <div className="mb-6 border-b border-white/10 pb-4">
+            <Title className="text-2xl sm:text-3xl font-bold">
+              Explore {searchFormValue.mediaType === "tv" ? "TV Shows" : "Movies"}
+            </Title>
+          </div>
+        )}
+
+        {/* Filter Toggle Button */}
+        <div className="mb-8 rounded-2xl bg-gray-800/60 p-4 border border-white/10 backdrop-blur-sm">
           <div
-            className={`absolute -top-[20px] flex w-fit cursor-pointer items-center gap-x-2 bg-[#181b24] p-2 hover:opacity-75`}
+            className="flex w-fit cursor-pointer items-center gap-x-2 text-sm sm:text-base font-semibold text-primary hover:text-primary-hover transition-colors"
             onClick={filterBtnClick}
           >
-            {isShowFilter ? (
-              <FaFilter className="text-base text-amber-200" />
-            ) : (
-              <FaFilter className="text-base text-white" />
-            )}
-            <p className="text-[20px] font-bold">Advanced Filter</p>
+            <FaFilter className="text-sm" />
+            <span>{isShowFilter ? "Hide Filters" : "Filter & Refine Movies"}</span>
           </div>
+
           {isShowFilter && (
-            <div className="mt-4">
+            <div className="mt-5 border-t border-white/10 pt-4">
               <SearchForm
                 searchFormValue={searchFormValue}
                 setSearchFormValue={setSearchFormValue}
@@ -172,42 +132,57 @@ const SearchPage = () => {
           )}
         </div>
 
-        <div className="mt-[50px]">
+        {/* Results Grid */}
+        <div>
           {isLoading ? (
-            <div className="flex justify-center py-4">
-              <div className="h-6 w-6 animate-spin rounded-full border-2 border-amber-200 border-t-transparent"></div>
-              <p className="ml-3 text-sm text-white">Loading...</p>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7">
+              {Array.from({ length: 14 }).map((_, i) => (
+                <MovieCardSkeleton key={i} />
+              ))}
             </div>
-          ) : (
+          ) : finalData?.results && finalData.results.length > 0 ? (
             <>
-              <div className="mb-10 grid grid-cols-7 gap-4">
-                {finalData &&
-                  finalData?.results.map((movie, index) => (
-                    <MediaCard
-                      key={`${movie.id}-${index}`}
-                      id={movie.id}
-                      title={movie.title || movie.name}
-                      date={movie.release_date || movie.first_air_date}
-                      onPageChange={handlePageChange}
-                      point={movie.vote_average}
-                      poster={movie.poster_path}
-                      type={movie.media_type || searchFormValue.mediaType}
-                    ></MediaCard>
-                  ))}
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7">
+                {finalData.results.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    id={movie.id}
+                    title={movie.title || movie.name}
+                    date={movie.release_date || movie.first_air_date}
+                    point={movie.vote_average || 0}
+                    poster={movie.poster_path}
+                    type={movie.media_type || searchFormValue.mediaType}
+                  />
+                ))}
               </div>
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePageChange}
-                pageRangeDisplayed={3}
-                pageCount={Math.min(finalData?.total_pages, 500)}
-                forcePage={currentPage - 1}
-                previousLabel="<"
-                containerClassName="flex gap-2 items-center justify-center mt-6"
-                pageClassName="outline-none px-3 py-1 rounded cursor-pointer hover:opacity-75 rounded-full w-fit "
-                activeClassName="border-2 bg-amber-200 text-black font-bold"
-              />
+
+              {/* Pagination */}
+              {finalData.total_pages > 1 && (
+                <div className="mt-12 flex justify-center">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="Next &rarr;"
+                    previousLabel="&larr; Prev"
+                    onPageChange={handlePageChange}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={1}
+                    pageCount={Math.min(finalData.total_pages, 500)}
+                    forcePage={currentPage - 1}
+                    containerClassName="flex flex-wrap items-center gap-1.5 sm:gap-2 text-sm"
+                    pageClassName="flex items-center justify-center rounded-xl bg-gray-800/80 px-3.5 py-2 text-gray-300 hover:bg-primary hover:text-white transition-colors cursor-pointer"
+                    activeClassName="!bg-primary !text-white font-bold shadow-lg shadow-primary/50"
+                    previousClassName="flex items-center justify-center rounded-xl bg-gray-800/80 px-3.5 py-2 text-gray-300 hover:bg-white hover:text-black transition-colors cursor-pointer"
+                    nextClassName="flex items-center justify-center rounded-xl bg-gray-800/80 px-3.5 py-2 text-gray-300 hover:bg-white hover:text-black transition-colors cursor-pointer"
+                    disabledClassName="opacity-40 cursor-not-allowed hover:bg-gray-800/80 hover:text-gray-300"
+                    breakClassName="px-2 text-gray-400"
+                  />
+                </div>
+              )}
             </>
+          ) : (
+            <div className="py-20 text-center text-gray-400">
+              No matching titles found. Try adjusting your filter parameters.
+            </div>
           )}
         </div>
       </div>

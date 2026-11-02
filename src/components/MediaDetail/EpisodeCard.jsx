@@ -2,42 +2,54 @@ import React from "react";
 import { formatRuntime } from "@/constant/ultil";
 import { IMAGE_BASE_URL } from "@/constant";
 import ImageComponent from "../ImageComponent";
+
 const EpisodeCard = ({
   episode_number,
   runtime,
   name,
   image,
   date,
-  overview,
+  overview = "",
 }) => {
   return (
-    <div className="h-full cursor-pointer bg-gray-800 text-white hover:opacity-75">
-      <div className="relative text-[12px]">
+    <div className="group flex h-full flex-col overflow-hidden rounded-xl bg-gray-800/90 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl border border-white/5">
+      <div className="relative overflow-hidden text-xs">
         <ImageComponent
-          width={250}
-          height={140}
-          src={image && `${IMAGE_BASE_URL}/original/${image}`}
-          alt=""
-          className="object-cover"
+          width={280}
+          height={160}
+          src={image ? `${IMAGE_BASE_URL}/original/${image}` : null}
+          alt={name}
+          className="h-[160px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <p className="bg-button absolute top-1 left-1 rounded-md p-1 font-bold text-white">
+        <span className="absolute top-2 left-2 rounded-md bg-primary/90 px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
           Ep {episode_number}
-        </p>
+        </span>
       </div>
-      <div className="mt-2 p-2">
-        <p className="mb-2 text-left text-[14px] font-bold">{name}</p>
-        <div className="flex items-center justify-between gap-x-2">
-          <div className="items-centerg flex gap-x-2 text-[12px]">
-            <p className="font-bold">{formatRuntime(runtime)}</p>
-            <div className="h-[20px] w-[1px] rounded-md bg-gray-400 lg:block"></div>
-            <p>{date}</p>
+
+      <div className="flex flex-1 flex-col p-3">
+        <h4 className="mb-1 text-sm font-bold text-white group-hover:text-secondary transition-colors line-clamp-1">
+          {name}
+        </h4>
+
+        <div className="flex items-center justify-between text-xs text-gray-400">
+          <div className="flex items-center gap-x-2">
+            <span className="font-medium text-gray-300">
+              {formatRuntime(runtime)}
+            </span>
+            {date && (
+              <>
+                <span className="h-3 w-px bg-gray-600" />
+                <span>{date}</span>
+              </>
+            )}
           </div>
-          <p className="rounded border-1 border-slate-500 p-[2px] text-[12px] text-white">
+          <span className="rounded border border-gray-600 px-1 py-0.2 text-[10px] font-semibold text-gray-300">
             HD
-          </p>
+          </span>
         </div>
-        <p className="mt-2 text-left text-[12px] leading-5 font-thin">
-          {overview.slice(0, 250)}
+
+        <p className="mt-2 text-xs text-gray-300 leading-relaxed line-clamp-3">
+          {overview || "No episode overview available."}
         </p>
       </div>
     </div>

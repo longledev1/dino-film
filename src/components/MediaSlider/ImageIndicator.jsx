@@ -1,32 +1,38 @@
 import { IMAGE_BASE_URL } from "@constants";
 import ImageComponent from "@components/ImageComponent";
-const ImageIndicator = ({ movies, index, onPreviewClick }) => {
+
+const ImageIndicator = ({ movies = [], index, onPreviewClick }) => {
   return (
-    <>
-      {movies &&
-        movies.map((movie, i) => (
-          <div
-            className={`h-[90px] w-[60px] rounded-md border-3 bg-gray-600 ${
-              i === index
-                ? "border-yellow-200"
-                : "cursor-pointer border-gray-900"
-            }`}
+    <div className="flex items-center gap-2.5 overflow-x-auto p-2 scrollbar-none max-w-full">
+      {movies.map((movie, i) => {
+        const isActive = i === index;
+        const posterUrl = movie.poster_path
+          ? `${IMAGE_BASE_URL}/w200/${movie.poster_path}`
+          : movie.backdrop_path
+            ? `${IMAGE_BASE_URL}/w300/${movie.backdrop_path}`
+            : null;
+
+        return (
+          <button
             key={movie.id}
+            type="button"
             onClick={() => onPreviewClick(i)}
+            aria-label={`Select ${movie.title || movie.name}`}
+            className={`relative h-[84px] w-[56px] shrink-0 cursor-pointer overflow-hidden rounded-xl border-2 transition-all duration-300 focus:outline-none ${
+              isActive
+                ? "border-secondary scale-105 shadow-xl shadow-black ring-2 ring-secondary/50 opacity-100 z-10"
+                : "border-white/10 opacity-50 hover:opacity-100 hover:border-white/40"
+            }`}
           >
             <ImageComponent
-              src={
-                movie.backdrop_path &&
-                `${IMAGE_BASE_URL}/w300/${movie.backdrop_path}`
-              }
-              alt=""
-              width={55}
-              height={85}
-              className="h-full w-full rounded-md object-cover"
+              src={posterUrl}
+              alt={movie.title || movie.name || "Movie thumbnail"}
+              className="h-full w-full object-cover"
             />
-          </div>
-        ))}
-    </>
+          </button>
+        );
+      })}
+    </div>
   );
 };
 

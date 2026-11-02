@@ -6,7 +6,7 @@ const CircleIndicator = ({ movies, index, onPreviewClick }) => {
           <div
             key={movie.id}
             className={`h-2 w-2 rounded-full ${
-              i === index ? "bg-yellow-200" : "cursor-pointer bg-gray-400"
+              i === index ? "bg-secondary" : "cursor-pointer bg-gray-400"
             }`}
             onClick={() => onPreviewClick(i)}
           />

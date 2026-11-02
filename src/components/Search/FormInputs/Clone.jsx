@@ -5,7 +5,7 @@ const MediaTypeInput = ({ onChange, name, value }) => {
     <>
       <div className="flex items-center gap-x-2">
         <input
-          className="h-3 w-3 cursor-pointer appearance-none rounded-full border-2 border-white checked:border-amber-200 checked:bg-amber-200"
+          className="h-3 w-3 cursor-pointer appearance-none rounded-full border-2 border-white checked:border-secondary checked:bg-secondary"
           type="radio"
           value="movie"
           name={name}
@@ -17,7 +17,7 @@ const MediaTypeInput = ({ onChange, name, value }) => {
       </div>
       <div className="flex items-center gap-x-2">
         <input
-          className="h-3 w-3 cursor-pointer appearance-none rounded-full border-2 border-white checked:border-amber-200 checked:bg-amber-200"
+          className="h-3 w-3 cursor-pointer appearance-none rounded-full border-2 border-white checked:border-secondary checked:bg-secondary"
           type="radio"
           value="tv"
           name={name}

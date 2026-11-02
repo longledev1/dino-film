@@ -21,7 +21,7 @@ const GenresInput = ({ control, onChange, value = [] }) => {
           <button
             key={genre.id}
             type="button"
-            className={`cursor-pointer rounded-md border-2 bg-[#0f1827] p-1 text-[14px] outline-none hover:opacity-75 ${value.includes(genre.id) ? "border-amber-200 bg-gray-600" : "border-gray-700"}`}
+            className={`cursor-pointer rounded-md border-2 bg-[#0f1827] p-1 text-[14px] outline-none hover:opacity-75 ${value.includes(genre.id) ? "border-secondary bg-gray-600" : "border-gray-700"}`}
             onClick={() => {
               const exitsValue = value.includes(genre.id);
               const newValue = exitsValue

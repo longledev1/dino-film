@@ -28,6 +28,6 @@
 }
 
 .related-swiper .swiper-pagination-bullet-active {
-  background-color: #f4dda2; /* ví dụ màu amber-400 giống theme bạn */
+  background-color: var(--color-secondary, #cdb370);
   opacity: 1;
 }

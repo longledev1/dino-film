@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  /* Color */
+  /* Brand Theme Colors - Đổi ở đây sẽ tự động cập nhật toàn bộ dự án */
+  --color-primary: #58866e;
+  --color-primary-hover: #49715c;
+  --color-secondary: #cdb370;
+  --color-secondary-hover: #bda15c;
   --color-sub: #9ca4ab;
-  --color-button: #45704d;
+  --color-button: #58866e;
+
   /* Font */
   --font-sans: "Netflix Sans", ui-sans-serif, system-ui;
 }
-/* Default  */
+
+/* Default fonts */
 @font-face {
   font-family: "Netflix Sans";
   src: url("/fonts/NetflixSans-Regular.woff2") format("woff2");

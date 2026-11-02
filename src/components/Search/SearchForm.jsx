@@ -81,7 +81,7 @@ const SearchForm = ({
         <div className="flex items-center gap-x-4">
           <button
             type="submit"
-            className="ml-[20px] flex h-[40px] w-[160px] cursor-pointer items-center justify-center gap-x-2 rounded-full bg-amber-200 font-bold text-black hover:opacity-75"
+            className="ml-[20px] flex h-[40px] w-[160px] cursor-pointer items-center justify-center gap-x-2 rounded-full bg-secondary font-bold text-black transition-colors hover:bg-secondary-hover"
           >
             Filter
             <FaLongArrowAltRight />

@@ -1,95 +1,114 @@
 import { GiDinosaurRex } from "react-icons/gi";
-import { FaTelegramPlane } from "react-icons/fa";
-import { FaDiscord } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaFacebookF } from "react-icons/fa";
-import { FaTiktok } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa";
-import { FaThreads } from "react-icons/fa6";
-import { FaInstagram } from "react-icons/fa";
+import {
+  FaTelegramPlane,
+  FaDiscord,
+  FaFacebookF,
+  FaTiktok,
+  FaYoutube,
+  FaInstagram,
+} from "react-icons/fa";
+import { FaXTwitter, FaThreads } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div className="mt-[100px] bg-gray-800 px-6 py-6 text-white">
-      {/* Footer Slogan */}
-      <div className="flex justify-center lg:justify-start">
-        <div className="bg-button mb-6 flex w-fit items-center gap-x-2 rounded-full p-2 text-[14px]">
-          <GiDinosaurRex className="text-2xl text-white" />
-          <p>Dino Film, Watch and Chill</p>
-        </div>
-      </div>
-      {/* Footer Logo & Icons */}
-      <div className="mb-6 flex flex-col items-center gap-x-12 lg:flex-row">
-        <img src="/images/logo.svg" alt="" className="w-[200px]" />
-        <div className="hidden h-[40px] w-[1px] rounded-md bg-gray-400 lg:block"></div>
-        <div className="mt-6 flex items-center gap-x-2 lg:mt-0">
-          {/* Telegram icon */}
-          <div className="flex justify-center rounded-full bg-gray-900 p-3 transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer">
-            <FaTelegramPlane className="text-[20px] text-white" />
-          </div>
-          {/* Discord icon */}
-          <div className="flex justify-center rounded-full bg-gray-900 p-3 transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer">
-            <FaDiscord className="text-[20px] text-white" />
-          </div>
-          {/* X icon */}
-          <div className="flex justify-center rounded-full bg-gray-900 p-3 transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer">
-            <FaXTwitter className="text-[20px] text-white" />
-          </div>
-          {/* Facebook icon */}
-          <div className="flex justify-center rounded-full bg-gray-900 p-3 transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer">
-            <FaFacebookF className="text-[20px] text-white" />
-          </div>
-          {/* Tiktok icon */}
-          <div className="flex justify-center rounded-full bg-gray-900 p-3 transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer">
-            <FaTiktok className="text-[20px] text-white" />
-          </div>
-          {/* Youtube icon */}
-          <div className="flex justify-center rounded-full bg-gray-900 p-3 transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer">
-            <FaYoutube className="text-[20px] text-white" />
-          </div>
-          {/* Thread icon */}
-          <div className="flex justify-center rounded-full bg-gray-900 p-3 transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer">
-            <FaThreads className="text-[20px] text-white" />
-          </div>
-          {/* Instagram icon */}
-          <div className="flex justify-center rounded-full bg-gray-900 p-3 transition-transform duration-200 ease-in-out hover:-translate-y-1.5 hover:cursor-pointer">
-            <FaInstagram className="text-[20px] text-white" />
+    <footer className="mt-20 border-t border-white/5 bg-[#13161c] px-6 py-12 text-white">
+      <div className="container mx-auto">
+        {/* Footer Slogan */}
+        <div className="flex justify-center lg:justify-start">
+          <div className="mb-8 flex items-center gap-x-2 rounded-full bg-primary/20 border border-primary/30 px-4 py-1.5 text-sm font-medium text-primary">
+            <GiDinosaurRex className="text-xl" />
+            <span>Dino Film • Watch and Chill</span>
           </div>
         </div>
+
+        {/* Footer Logo & Icons */}
+        <div className="mb-8 flex flex-col items-center justify-between gap-6 border-b border-white/10 pb-8 lg:flex-row">
+          <Link to="/">
+            <img
+              src="/images/logo.svg"
+              alt="Dino Movie Logo"
+              className="w-[180px] transition-transform hover:scale-105"
+            />
+          </Link>
+
+          {/* Social Icons */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            {[
+              { icon: FaTelegramPlane, label: "Telegram" },
+              { icon: FaDiscord, label: "Discord" },
+              { icon: FaXTwitter, label: "X (Twitter)" },
+              { icon: FaFacebookF, label: "Facebook" },
+              { icon: FaTiktok, label: "TikTok" },
+              { icon: FaYoutube, label: "YouTube" },
+              { icon: FaThreads, label: "Threads" },
+              { icon: FaInstagram, label: "Instagram" },
+            ].map((item) => {
+              const SocialIcon = item.icon;
+              return (
+                <a
+                  key={item.label}
+                  href="#"
+                  title={item.label}
+                  aria-label={item.label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800/80 text-gray-300 transition-all duration-200 hover:-translate-y-1 hover:bg-primary hover:text-white border border-white/5"
+                >
+                  <SocialIcon className="text-base" />
+                </a>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Footer Menu */}
+        <ul className="mb-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-gray-400 lg:justify-start">
+          <li>
+            <a href="#" className="transition-colors hover:text-secondary">
+              FAQ
+            </a>
+          </li>
+          <li>
+            <a href="#" className="transition-colors hover:text-secondary">
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a href="#" className="transition-colors hover:text-secondary">
+              Terms of Service
+            </a>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("dino_open_disclaimer"))}
+              className="cursor-pointer transition-colors hover:text-secondary"
+            >
+              About & Disclaimer
+            </button>
+          </li>
+          <li>
+            <a href="#" className="transition-colors hover:text-secondary">
+              Contact & Support
+            </a>
+          </li>
+        </ul>
+
+        {/* Footer Content */}
+        <div className="text-xs sm:text-sm text-gray-400">
+          <p className="mb-3 max-w-3xl leading-relaxed text-gray-400/80">
+            DinoFilm – The ultimate movie discovery hub. Discover thousands of
+            box-office hits, popular TV series, timeless Disney animations, and
+            top-rated cinema worldwide with high-definition trailers, detailed
+            cast bios, and real-time community ratings.
+          </p>
+          <p className="font-semibold text-gray-300">
+            © {currentYear} DinoFilm. Crafted with passion for cinema lovers.
+          </p>
+        </div>
       </div>
-      {/* Footer Menu */}
-      <div className="mb-6 flex items-center gap-x-6 text-[14px] font-thin text-white">
-        <li className="list-none hover:text-yellow-200 hover:underline">
-          <a href="#">FAQ</a>
-        </li>
-        <li className="list-none hover:text-yellow-200 hover:underline">
-          <a href="#">Privacy Policy</a>
-        </li>
-        <li className="list-none hover:text-yellow-200 hover:underline">
-          <a href="#">Terms of Use</a>
-        </li>
-        <li className="list-none hover:text-yellow-200 hover:underline">
-          <a href="#">About Us</a>
-        </li>
-        <li className="list-none hover:text-yellow-200 hover:underline">
-          <a href="#">Contact Us</a>
-        </li>
-      </div>
-      {/* Footer Content */}
-      <div>
-        <p className="mb-2 w-full text-justify text-[14px] leading-6 font-thin text-white lg:w-[800px]">
-          DinoFilm – A basket of good movies - A site to watch high-quality
-          online movies for free with Vietsub, voiceover, full HD dubbing. A
-          huge library of new movies, movies in theaters, series, movies from
-          many countries such as Vietnam, Korea, China, Thailand, Japan, Europe
-          and America... diverse genres. Discover the best online movie platform
-          of 2025 with 4K quality!
-        </p>
-        <p className="text-[14px] leading-6 font-bold text-white">
-          © 2025 DinoFilm. All rights reserved.
-        </p>
-      </div>
-    </div>
+    </footer>
   );
 };
 

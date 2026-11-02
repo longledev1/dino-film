@@ -1,48 +1,65 @@
 import React from "react";
 import Title from "@components/Title";
+
 const TVShowInformation = ({ tvInfo }) => {
+  if (!tvInfo) return null;
+
+  const hasCountry =
+    Array.isArray(tvInfo.origin_country) && tvInfo.origin_country.length > 0;
+
   return (
-    <div>
-      <Title className="text-white">Information</Title>
-      <div className="mt-4 text-[14px] sm:text-base">
-        <div
-          className={
-            tvInfo?.credits?.cast != ""
-              ? `flex flex-col gap-6`
-              : "grid grid-cols-2 gap-6 sm:flex sm:items-center sm:justify-between"
-          }
-        >
-          <div>
-            <p className="font-bold text-amber-200">Original Title</p>
-            <p className="font-thin text-white">{tvInfo?.original_name}</p>
+    <div className="rounded-2xl bg-gray-850/60 p-5 border border-white/5 backdrop-blur-sm">
+      <Title className="text-white mb-4 text-xl">Information</Title>
+      <div className="flex flex-col gap-4 text-sm">
+        <div>
+          <p className="font-bold text-xs uppercase tracking-wider text-secondary">
+            Original Title
+          </p>
+          <p className="mt-1 text-gray-200">{tvInfo.original_name || "N/A"}</p>
+        </div>
+
+        <div>
+          <p className="font-bold text-xs uppercase tracking-wider text-secondary">
+            Original Country
+          </p>
+          <div className="mt-1 flex items-center gap-x-2 text-white">
+            {hasCountry
+              ? tvInfo.origin_country.map((countryCode) => (
+                  <img
+                    key={countryCode}
+                    src={`https://flagcdn.com/48x36/${countryCode.toLowerCase()}.png`}
+                    alt={countryCode}
+                    title={countryCode}
+                    className="h-4 w-6 rounded object-cover shadow"
+                  />
+                ))
+              : "Unknown"}
           </div>
-          <div>
-            <p className="font-bold text-amber-200">Original Country</p>
-            <div className="flex items-center gap-x-2 text-white">
-              {tvInfo?.origin_country != ""
-                ? tvInfo?.origin_country.map((countryCode) => (
-                    <img
-                      key={countryCode}
-                      src={`https://flagcdn.com/48x36/${countryCode.toLowerCase()}.png`}
-                      alt={countryCode}
-                      className="mt-1 w-5"
-                    ></img>
-                  ))
-                : "Unknow"}
-            </div>
-          </div>
-          <div>
-            <p className="font-bold text-amber-200">Status</p>
-            <p className="font-thin text-white">{tvInfo?.status}</p>
-          </div>
-          <div>
-            <p className="font-bold text-amber-200">Number of Seasons</p>
-            <p className="font-thin text-white">{tvInfo?.number_of_seasons}</p>
-          </div>
-          <div>
-            <p className="font-bold text-amber-200">Number of Episodes</p>
-            <p className="font-thin text-white">{tvInfo?.number_of_episodes}</p>
-          </div>
+        </div>
+
+        <div>
+          <p className="font-bold text-xs uppercase tracking-wider text-secondary">
+            Status
+          </p>
+          <p className="mt-1 text-gray-200">{tvInfo.status || "N/A"}</p>
+        </div>
+
+        <div>
+          <p className="font-bold text-xs uppercase tracking-wider text-secondary">
+            Number of Seasons
+          </p>
+          <p className="mt-1 text-gray-200">
+            {tvInfo.number_of_seasons ?? "N/A"}
+          </p>
+        </div>
+
+        <div>
+          <p className="font-bold text-xs uppercase tracking-wider text-secondary">
+            Number of Episodes
+          </p>
+          <p className="mt-1 text-gray-200">
+            {tvInfo.number_of_episodes ?? "N/A"}
+          </p>
         </div>
       </div>
     </div>

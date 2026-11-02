@@ -1,9 +1,40 @@
+/* Ẩn triệt để slide cũ khi chuyển slide, ngăn hoàn toàn hiện tượng bóng mờ đè chữ */
+.swiper-slide {
+  transition: opacity 0.4s ease-in-out;
+}
+
+.swiper-fade .swiper-slide:not(.swiper-slide-active) {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+.swiper-fade .swiper-slide-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .swiper-button-next,
 .swiper-button-prev {
-  @apply flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 text-white shadow-lg transition hover:bg-gray-600;
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #1f2937;
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #374151;
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-  @apply text-lg font-bold;
+  font-size: 1.125rem;
+  font-weight: 700;
 }

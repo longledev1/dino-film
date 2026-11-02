@@ -1,100 +1,108 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import Title from "@/components/Title";
 import { movieFetcher } from "@/services/fetcher";
 import useSWR from "swr";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { MOOD_MEDIA_DATA } from "@/constant";
-import MediaCard from "@/components/People/PeopleCastCard";
+import MovieCard from "@/components/MediaList/MovieCard";
+import { MovieCardSkeleton } from "@/components/Loading/MovieCardSkeleton";
 import ReactPaginate from "react-paginate";
 import { capitalize } from "@/constant/ultil";
-import Loading from "@/components/Loading";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const MoodPage = () => {
-  const [currentExplorePage, setCurrentExplorePage] = useLocalStorage(
-    "explore-page",
-    1,
-  );
-  const [lastMediaType, setLastMediaType] = useLocalStorage(
-    "last-media-type",
-    "",
-  );
-  const type = useParams().type;
+  const { type } = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
 
+  // Reset trang về 1 khi đổi type
   useEffect(() => {
-    if (type !== lastMediaType) {
-      setCurrentExplorePage(1); // Reset trang về 1
-    }
-
-    setLastMediaType(type);
-
+    setCurrentPage(1);
     window.scrollTo(0, 0);
-  }, [type, lastMediaType, setCurrentExplorePage, setLastMediaType]);
+  }, [type]);
 
   const MOOD_MEDIA_ENDPOINT = MOOD_MEDIA_DATA[type];
 
   const { data, isLoading } = useSWR(
-    MOOD_MEDIA_ENDPOINT ? [MOOD_MEDIA_ENDPOINT(currentExplorePage)] : null,
+    MOOD_MEDIA_ENDPOINT ? [MOOD_MEDIA_ENDPOINT(currentPage)] : null,
     movieFetcher,
   );
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const handlePageChange = ({ selected }) => {
-    setCurrentExplorePage(selected + 1);
-    window.scrollTo({ top: 230, behavior: "smooth" });
+    setCurrentPage(selected + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
-
   return (
-    <div className="relative min-h-screen pt-[108px] text-white">
-      <div className="px-[20px] py-[25px]">
-        <div className="flex items-center gap-x-2 text-2xl font-bold">
-          <p className="text-amber-200">{capitalize(type)}</p>
-          <p>Movies</p>
+    <div className="relative min-h-screen pt-[110px] pb-16 text-white">
+      <div className="container">
+        {/* Breadcrumb / Back button */}
+        <Link
+          to="/"
+          className="mb-6 inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white"
+        >
+          <FaArrowLeft />
+          <span>Back to Home</span>
+        </Link>
+
+        {/* Title Section */}
+        <div className="mb-8 flex items-baseline gap-x-3 border-b border-white/10 pb-4">
+          <Title className="text-2xl font-bold sm:text-4xl text-secondary">
+            {capitalize(type || "")}
+          </Title>
+          <span className="text-xl font-medium text-gray-400">Collection</span>
         </div>
 
-        <div className="mt-[50px]">
+        {/* Movie Grid */}
+        <div>
           {isLoading ? (
-            <div className="flex justify-center py-4">
-              <div className="h-6 w-6 animate-spin rounded-full border-2 border-amber-200 border-t-transparent"></div>
-              <p className="ml-3 text-sm text-white">Loading...</p>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7">
+              {Array.from({ length: 14 }).map((_, i) => (
+                <MovieCardSkeleton key={i} />
+              ))}
             </div>
-          ) : (
+          ) : data?.results && data.results.length > 0 ? (
             <>
-              <div className="mb-10 grid grid-cols-4 gap-4 sm:grid-cols-7">
-                {data &&
-                  data?.results.map((movie, index) => (
-                    <MediaCard
-                      key={`${movie.id}-${index}`}
-                      id={movie.id}
-                      title={movie.title || movie.name}
-                      date={movie.release_date || movie.first_air_date}
-                      onPageChange={handlePageChange}
-                      point={movie.vote_average}
-                      poster={movie.poster_path}
-                      type={movie.media_type}
-                    ></MediaCard>
-                  ))}
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7">
+                {data.results.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    id={movie.id}
+                    title={movie.title || movie.name}
+                    date={movie.release_date || movie.first_air_date}
+                    point={movie.vote_average || 0}
+                    poster={movie.poster_path}
+                    type={movie.media_type || "movie"}
+                  />
+                ))}
               </div>
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePageChange}
-                pageRangeDisplayed={3}
-                pageCount={Math.min(data?.total_pages, 500)}
-                forcePage={currentExplorePage - 1}
-                previousLabel="<"
-                containerClassName="flex gap-2 items-center justify-center mt-6"
-                pageClassName="outline-none px-3 py-1 rounded cursor-pointer hover:opacity-75 rounded-full w-fit "
-                activeClassName="border-2 bg-amber-200 text-black font-bold"
-              />
+
+              {/* Pagination */}
+              {data.total_pages > 1 && (
+                <div className="mt-12 flex justify-center">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="Next &rarr;"
+                    previousLabel="&larr; Prev"
+                    onPageChange={handlePageChange}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={1}
+                    pageCount={Math.min(data.total_pages, 500)}
+                    forcePage={currentPage - 1}
+                    containerClassName="flex flex-wrap items-center gap-1.5 sm:gap-2 text-sm"
+                    pageClassName="flex items-center justify-center rounded-xl bg-gray-800/80 px-3.5 py-2 text-gray-300 hover:bg-primary hover:text-white transition-colors cursor-pointer"
+                    activeClassName="!bg-primary !text-white font-bold shadow-lg shadow-primary/50"
+                    previousClassName="flex items-center justify-center rounded-xl bg-gray-800/80 px-3.5 py-2 text-gray-300 hover:bg-white hover:text-black transition-colors cursor-pointer"
+                    nextClassName="flex items-center justify-center rounded-xl bg-gray-800/80 px-3.5 py-2 text-gray-300 hover:bg-white hover:text-black transition-colors cursor-pointer"
+                    disabledClassName="opacity-40 cursor-not-allowed hover:bg-gray-800/80 hover:text-gray-300"
+                    breakClassName="px-2 text-gray-400"
+                  />
+                </div>
+              )}
             </>
+          ) : (
+            <div className="py-20 text-center text-gray-400">
+              No movies found in this collection.
+            </div>
           )}
         </div>
       </div>

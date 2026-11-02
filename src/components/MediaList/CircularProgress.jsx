@@ -1,37 +1,36 @@
 const CircularProgress = ({
-  percent = 12,
+  percent = 0,
   size = 3,
-  strokeWidth = 0.25,
-  strokeColor = "green",
+  strokeWidth = 0.22,
+  strokeColor = "#10b981",
 }) => {
-  // Chuyển size sang px bằng cách clamp trong JS
-  // min: 40px, max: 80px, còn lại theo % viewport
-  const vw = window.innerWidth;
-  const preferredSize = (size / 100) * vw; // size là theo vw
-  const finalSize = Math.max(40, Math.min(preferredSize, 80)); // clamp trong JS
+  const vw = typeof window !== "undefined" ? window.innerWidth : 1200;
+  const preferredSize = (size / 100) * vw;
+  const finalSize = Math.max(38, Math.min(preferredSize, 48));
 
-  const radius = finalSize / 2 - strokeWidth * 16;
+  const strokeWidthPx = Math.max(2.5, strokeWidth * 14);
+  const radius = finalSize / 2 - strokeWidthPx;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (percent / 100) * circumference;
 
   return (
-    <div>
-      <svg width={finalSize} height={finalSize}>
-        {/* Background circle */}
+    <div className="flex items-center justify-center rounded-full bg-[#111827] shadow-lg shadow-black/80">
+      <svg width={finalSize} height={finalSize} className="block">
+        {/* Nền đĩa tròn đặc che phủ nền sau */}
         <circle
           r={radius}
           cx={finalSize / 2}
           cy={finalSize / 2}
-          strokeWidth={strokeWidth * 16}
-          stroke="white"
-          fill="none"
+          strokeWidth={strokeWidthPx}
+          stroke="rgba(255, 255, 255, 0.15)"
+          fill="#111827"
         />
-        {/* Progress circle */}
+        {/* Vòng tiến trình màu */}
         <circle
           r={radius}
           cx={finalSize / 2}
           cy={finalSize / 2}
-          strokeWidth={strokeWidth * 16}
+          strokeWidth={strokeWidthPx}
           stroke={strokeColor}
           fill="none"
           strokeDasharray={circumference}
@@ -39,12 +38,13 @@ const CircularProgress = ({
           transform={`rotate(-90 ${finalSize / 2} ${finalSize / 2})`}
           strokeLinecap="round"
         />
-        {/* Text ở giữa */}
+        {/* Số % điểm số */}
         <text
           x={finalSize / 2}
           y={finalSize / 2}
-          fontSize={finalSize * 0.3} // khoảng 25% kích thước SVG
-          alignmentBaseline="middle"
+          fontSize={finalSize * 0.32}
+          fontWeight="bold"
+          alignmentBaseline="central"
           textAnchor="middle"
           fill="white"
         >

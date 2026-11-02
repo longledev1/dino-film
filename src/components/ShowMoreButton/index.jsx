@@ -7,7 +7,7 @@ const ShowMoreButton = ({
   currentData,
   visibleLimit,
 }) => {
-  if (!currentData || currentData == 0) {
+  if (!currentData || currentData === 0) {
     return null;
   }
 
@@ -21,11 +21,11 @@ const ShowMoreButton = ({
       } text-white`}
     >
       {isShowMore ? (
-        <IoMdArrowDropupCircle className="text-3xl text-amber-200 group-hover:opacity-80" />
+        <IoMdArrowDropupCircle className="text-3xl text-secondary group-hover:opacity-80" />
       ) : (
-        <IoMdArrowDropdownCircle className="text-3xl text-amber-200 group-hover:opacity-80" />
+        <IoMdArrowDropdownCircle className="text-3xl text-secondary group-hover:opacity-80" />
       )}
-      <p className="cursor-pointer transition duration-200 group-hover:text-amber-200">
+      <p className="cursor-pointer transition duration-200 group-hover:text-secondary">
         {isShowMore ? "Show less" : "Show more"}
       </p>
     </div>
