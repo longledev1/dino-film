@@ -1,8 +1,19 @@
-# Netlify Configuration for Dino Film (React + Vite SPA)
+# Netlify Configuration for Dino Film (React + Vite SPA with Serverless Proxy)
 
 [build]
   publish = "dist"
   command = "npm run build"
+
+# Route /api/tmdb to the Netlify Serverless Function
+[[redirects]]
+  from = "/api/tmdb"
+  to = "/.netlify/functions/tmdb"
+  status = 200
+
+[[redirects]]
+  from = "/api/tmdb/*"
+  to = "/.netlify/functions/tmdb"
+  status = 200
 
 # SPA Fallback: Redirect all routes to index.html with 200 status for React Router
 [[redirects]]
