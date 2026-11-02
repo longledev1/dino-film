@@ -1,5 +1,5 @@
 const BASE_URL = "https://api.themoviedb.org/3";
-const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+const TOKEN = import.meta.env.VITE_TMDB_TOKEN || import.meta.env.VITE_API_TOKEN;
 
 class MovieService {
   constructor() {
